@@ -5,7 +5,6 @@ function NavBarMain() {
 
   const handleScroll = () => {
     setScroll(window.scrollY);
-    console.log("run");
   };
 
   useEffect(() => {
