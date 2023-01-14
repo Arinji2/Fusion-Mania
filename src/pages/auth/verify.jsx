@@ -42,7 +42,7 @@ function Verify() {
         `fusionmania/${auth.currentUser.uid}/initial.txt`
       );
       uploadBytes(fileRef).then(() => {
-        window.location.assign("/setup");
+        window.location.assign("/setup/name");
       });
     });
   };
