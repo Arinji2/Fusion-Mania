@@ -7,18 +7,18 @@ function Login() {
   return (
     <React.Fragment>
       <NavBarMain mode={1} />
-      <div className="w-full h-full">
-        <div className="absolute flex flex-col items-center justify-center w-full h-[100%] md:h-screen">
+      <div className="w-full h-screen relative overflow-hidden">
+        <div className="absolute flex flex-col items-center justify-center w-full h-screen md:h-screen overflow-hidden">
           <img
             src={LoginPic}
             className="absolute object-cover h-full w-full object-center"
           />
           <div className="w-full h-full bg-theme-0 opacity-70 absolute"></div>
         </div>
-        <div className="w-full h-fit md:h-screen flex flex-col items-center justify-end">
-          <div className="w-full h-[75vh] flex flex-row items-start justify-between z-10">
+        <div className="w-full h-screen flex flex-col items-center justify-end">
+          <div className="w-full min-h-[75vh] flex flex-row items-start justify-between z-10">
             <div className="w-[50%] md:block hidden"></div>
-            <div className="md:w-[50%] w-full  md:h-full flex flex-col items-center justify-end md:justify-center mt-10 md:mt-0">
+            <div className="md:w-[50%] w-full  h-full flex flex-col items-center justify-end md:justify-center mt-10 md:mt-0">
               <h1 className="text-5xl md:text-7xl text-theme-40">
                 Login to your Account
               </h1>
@@ -30,7 +30,7 @@ function Login() {
                     autoCapitalize="off"
                     autoComplete="off"
                     spellCheck="false"
-                    className="rounded-lg h-[42px] w-full text-[20px] p-4 outline-none  bg-[#29596B] text-left"
+                    className="rounded-lg min-h-[42px] w-full text-[20px] p-4 outline-none  bg-[#29596B] text-left"
                     onChange={(e) => {
                       setEmail(e.currentTarget.value);
                     }}
@@ -44,7 +44,7 @@ function Login() {
                       autoCapitalize="off"
                       autoComplete="off"
                       spellCheck="false"
-                      className="rounded-lg h-[42px] w-[70%] text-[20px] p-4 outline-none  bg-[#29596B] text-left"
+                      className="rounded-lg min-h-[42px] w-[70%] text-[20px] p-4 outline-none  bg-[#29596B] text-left"
                       onChange={(e) => {
                         setPassword(e.currentTarget.value);
                       }}
