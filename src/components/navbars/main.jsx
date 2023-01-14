@@ -22,7 +22,11 @@ function NavBarMain({ mode }) {
       } z-50 flex flex-row items-center justify-between `}
     >
       <div className="h-full w-[60%]  md:w-[30%] flex flex-col items-start justify-center">
-        <p className="text-xl md:text-3xl text-white nav ml-4">Fusion Mania</p>
+        <Link to="/" className="flex flex-col items-center justify-center">
+          <p className="text-xl md:text-3xl text-white nav ml-4">
+            Fusion Mania
+          </p>
+        </Link>
       </div>
       <div className="h-full w-[10%] md:w-[40%] flex flex-col items-center justify-center">
         <p className="text-theme-40 nav text-4xl  md:block hidden">
@@ -30,7 +34,10 @@ function NavBarMain({ mode }) {
         </p>
       </div>
       <div className="h-full w-[60%] md:w-[30%] flex flex-col items-end justify-center">
-        <Link to="/login" className="flex flex-col items-center justify-center">
+        <Link
+          to="/create"
+          className="flex flex-col items-center justify-center"
+        >
           <p className="mr-2 md:mr-4 text-theme-40 bg-white p-2 md:pl-4 md:pr-4 text-lg md:text-2xl rounded-lg hover:text-white hover:bg-theme-40 transition-all ease-in-out duration-300">
             Start your Journey
           </p>

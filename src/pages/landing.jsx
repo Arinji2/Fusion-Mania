@@ -45,7 +45,7 @@ function Hero() {
               Lead your Destiny
             </p>
             <Link
-              to="/login"
+              to="/create"
               className="flex flex-col items-center justify-center"
             >
               <p className="p-4 bg-theme-40 rounded-lg text-white text-[20px]  md:text-[20px] absolute bottom-10 hover:cursor-pointer hover:bg-white hover:text-theme-40 transition-all ease-in-out duration-300 block">
@@ -111,7 +111,10 @@ function End() {
         <h1 className="md:w-[85vw] text-[40px] md:text-[70px] text-theme-50 z-10 mt-10 md:mt-0">
           Your Destiny Awaits you
         </h1>
-        <Link to="/login" className="flex flex-col items-center justify-center">
+        <Link
+          to="/create"
+          className="flex flex-col items-center justify-center"
+        >
           <p className="p-4 bg-theme-40 rounded-lg text-white text-[20px]  md:text-[30px] absolute bottom-[40%] hover:cursor-pointer hover:bg-white hover:text-theme-40 transition-all ease-in-out duration-300 z-10">
             Start your Journey
           </p>

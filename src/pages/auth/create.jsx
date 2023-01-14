@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import NavBarMain from "../../components/navbars/main";
 import LoginPic from "../../assets/auth.png";
+import { Link } from "react-router-dom";
 function Create() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -17,10 +18,9 @@ function Create() {
         </div>
         <div className="w-full h-screen flex flex-col items-center justify-end">
           <div className="w-full min-h-[75vh] flex flex-row items-start justify-between z-10">
-            <div className="w-[50%] md:block hidden"></div>
             <div className="md:w-[50%] w-full  h-full flex flex-col items-center justify-end md:justify-center mt-10 md:mt-0">
               <h1 className="text-5xl md:text-7xl text-theme-40">
-                Login to your Account
+                Create your Account
               </h1>
               <div className="w-full h-full flex flex-col items-center md:items-end justify-start">
                 <div className="flex flex-col items-start justify-start text-white mt-10 md:mt-20 w-[90%] md:mr-5">
@@ -52,9 +52,14 @@ function Create() {
                   </div>
                 </div>
                 <div className="w-full flex flex-row items-center justify-evenly mt-10 gap-5">
-                  <p className="text-white p-2 md:pr-4 md:pl-4 rounded-lg bg-theme-60 text-[15px] md:text-[25px] hover:text-theme-60 hover:bg-white border-2 border-theme-60 transition-all ease-in-out duration-300 hover:cursor-pointer">
-                    Login
+                  <p className="text-white p-2 md:pr-4 md:pl-4 rounded-lg bg-theme-30 text-[15px] md:text-[25px] hover:text-theme-30 hover:bg-white border-2 border-theme-30 transition-all ease-in-out duration-300 hover:cursor-pointer">
+                    Create
                   </p>
+                  <Link to="/login">
+                    <p className="text-white p-2 md:pr-4 md:pl-4 rounded-lg bg-theme-30 text-[15px] md:text-[25px] hover:text-theme-30 hover:bg-white border-2 border-theme-30 transition-all ease-in-out duration-300 hover:cursor-pointer">
+                      Login Instead
+                    </p>
+                  </Link>
                 </div>
               </div>
             </div>
