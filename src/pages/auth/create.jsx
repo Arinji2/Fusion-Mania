@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import NavBarMain from "../../components/navbars/main";
 import LoginPic from "../../assets/auth.png";
-function Login() {
+function Create() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   return (
@@ -9,7 +9,10 @@ function Login() {
       <NavBarMain mode={1} />
       <div className="w-full h-screen relative overflow-hidden">
         <div className="absolute flex flex-col items-center justify-center w-full h-screen md:h-screen overflow-hidden">
-          <img src={LoginPic} className="absolute object-cover h-full w-full" />
+          <img
+            src={LoginPic}
+            className="absolute object-cover h-full w-full object-center"
+          />
           <div className="w-full h-full bg-theme-0 opacity-70 absolute"></div>
         </div>
         <div className="w-full h-screen flex flex-col items-center justify-end">
@@ -33,7 +36,7 @@ function Login() {
                     }}
                   ></input>
                 </div>
-                <div className="flex flex-col items-start justify-start text-white mt-10 md:mt-20 w-[90%]  md:w-[90%] md:mr-5">
+                <div className="flex flex-col items-start justify-start text-white mt-10 md:mt-20 w-[90%] md:mr-5">
                   <p className="text-[30px]">Password</p>
                   <div className="flex flex-row items-center justify-evenly w-full">
                     <input
@@ -41,15 +44,11 @@ function Login() {
                       autoCapitalize="off"
                       autoComplete="off"
                       spellCheck="false"
-                      className="rounded-lg min-h-[42px] w-[70%] text-[20px] p-4 outline-none  bg-[#29596B] text-left"
+                      className="rounded-lg min-h-[42px] w-full text-[20px] p-4 outline-none  bg-[#29596B] text-left"
                       onChange={(e) => {
                         setPassword(e.currentTarget.value);
                       }}
                     ></input>
-                    <div className="w-[5%]"></div>
-                    <p className="text-white p-2 md:pr-4 md:pl-4 rounded-lg bg-[#29596B] text-[15px] md:text-[20px] hover:text-[#29596B] hover:bg-white border-2 border-[#29596B] transition-all ease-in-out duration-300 hover:cursor-pointer">
-                      Forgot Password
-                    </p>
                   </div>
                 </div>
                 <div className="w-full flex flex-row items-center justify-evenly mt-10 gap-5">
@@ -66,4 +65,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default Create;
