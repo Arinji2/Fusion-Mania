@@ -40,7 +40,7 @@ function Login() {
                   <p className="text-[30px]">Password</p>
                   <div className="flex flex-row items-center justify-evenly w-full">
                     <input
-                      type={"password]"}
+                      type={"password"}
                       autoCapitalize="off"
                       autoComplete="off"
                       spellCheck="false"
