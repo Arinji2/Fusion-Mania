@@ -22,7 +22,7 @@ function Login() {
               <h1 className="text-5xl md:text-7xl text-theme-40">
                 Login to your Account
               </h1>
-              <div className="w-full h-full flex flex-col items-center md:items-end justify-center">
+              <div className="w-full h-full flex flex-col items-center md:items-end justify-start">
                 <div className="flex flex-col items-start justify-start text-white mt-10 md:mt-20 w-[90%] md:mr-5">
                   <p className="text-[30px]">Email</p>
                   <input
