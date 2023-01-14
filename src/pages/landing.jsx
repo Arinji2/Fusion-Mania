@@ -6,6 +6,7 @@ import icon2 from "../assets/icon2.png";
 import icon3 from "../assets/icon3.png";
 import EndPic from "../assets/End.png";
 import NavBarMain from "../components/navbars/main";
+import { BrowserRouter, Link } from "react-router-dom";
 
 function Landing() {
   return (
@@ -43,14 +44,14 @@ function Hero() {
             <p className="text-white text-[30px] md:text-[40px] pt-20">
               Lead your Destiny
             </p>
-            <p
-              className="p-4 bg-theme-40 rounded-lg text-white text-[20px]  md:text-[20px] absolute bottom-10 hover:cursor-pointer hover:bg-white hover:text-theme-40 transition-all ease-in-out duration-300"
-              onClick={() => {
-                window.location.assign("/login");
-              }}
+            <Link
+              to="/login"
+              className="flex flex-col items-center justify-center"
             >
-              Start your Journey
-            </p>
+              <p className="p-4 bg-theme-40 rounded-lg text-white text-[20px]  md:text-[20px] absolute bottom-10 hover:cursor-pointer hover:bg-white hover:text-theme-40 transition-all ease-in-out duration-300 block">
+                Start your Journey
+              </p>
+            </Link>
           </div>
         </div>
       </div>
@@ -110,15 +111,12 @@ function End() {
         <h1 className="md:w-[85vw] text-[40px] md:text-[70px] text-theme-50 z-10 mt-10 md:mt-0">
           Your Destiny Awaits you
         </h1>
-        <p
-          className="p-4 bg-theme-40 rounded-lg text-white text-[20px]  md:text-[30px] absolute bottom-[40%] hover:cursor-pointer hover:bg-white hover:text-theme-40 transition-all ease-in-out duration-300 z-10"
-          onClick={() => {
-            window.location.assign("/login");
-          }}
-        >
-          Start your Journey
-        </p>
-        <p className="z-10 text-white text-[40px] absolute bottom-10">
+        <Link to="/login" className="flex flex-col items-center justify-center">
+          <p className="p-4 bg-theme-40 rounded-lg text-white text-[20px]  md:text-[30px] absolute bottom-[40%] hover:cursor-pointer hover:bg-white hover:text-theme-40 transition-all ease-in-out duration-300 z-10">
+            Start your Journey
+          </p>
+        </Link>
+        <p className="z-10 text-white text-[20px] md:text-[40px] absolute bottom-10 m-2">
           Powered By: Dicebear Avatars
         </p>
       </div>

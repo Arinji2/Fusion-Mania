@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 
-function NavBarMain() {
+function NavBarMain({ mode }) {
   const [scroll, setScroll] = useState(0);
 
   const handleScroll = () => {
@@ -17,7 +18,7 @@ function NavBarMain() {
   return (
     <div
       className={`h-[19vh] w-full fixed top-0 ${
-        scroll > 60 ? "bg-black" : "bg-transparent"
+        scroll > 60 || mode > 0 ? "bg-black" : "bg-transparent"
       } z-50 flex flex-row items-center justify-between `}
     >
       <div className="h-full w-[60%]  md:w-[30%] flex flex-col items-start justify-center">
@@ -29,9 +30,11 @@ function NavBarMain() {
         </p>
       </div>
       <div className="h-full w-[60%] md:w-[30%] flex flex-col items-end justify-center">
-        <p className="mr-2 md:mr-4 text-theme-40 bg-white p-2 md:pl-4 md:pr-4 text-lg md:text-2xl rounded-lg hover:text-white hover:bg-theme-40 transition-all ease-in-out duration-300">
-          Start your Journey
-        </p>
+        <Link to="/login" className="flex flex-col items-center justify-center">
+          <p className="mr-2 md:mr-4 text-theme-40 bg-white p-2 md:pl-4 md:pr-4 text-lg md:text-2xl rounded-lg hover:text-white hover:bg-theme-40 transition-all ease-in-out duration-300">
+            Start your Journey
+          </p>
+        </Link>
       </div>
     </div>
   );
