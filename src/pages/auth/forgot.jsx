@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import NavBarMain from "../../components/navbars/main";
 import LoginPic from "../../assets/auth.png";
 import { Link } from "react-router-dom";
+import { sendPasswordResetEmail } from "firebase/auth";
+import { auth } from "../../firebase";
 function Forgot() {
   return (
     <React.Fragment>
@@ -19,6 +21,9 @@ function Forgot() {
             </h1>
             <p
               className={`text-white text-[30px] p-2 rounded-lg bg-[#29596B] hover:bg-white hover:text-[#29596B] border-2 border-[#29596B] transition-all ease-in-out duration-300 hover:cursor-pointer`}
+              onClick={() => {
+                sendPasswordResetEmail(auth, auth.currentUser.email);
+              }}
             >
               Send Email Reset
             </p>

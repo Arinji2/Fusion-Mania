@@ -1,11 +1,51 @@
 import React, { useState, useEffect } from "react";
 import NavBarMain from "../../components/navbars/main";
 import LoginPic from "../../assets/auth.png";
+import { onAuthStateChanged, sendEmailVerification } from "firebase/auth";
+import { setDoc, doc } from "firebase/firestore";
+import { ref, uploadBytes } from "firebase/storage";
+import { auth, db, store } from "../../firebase";
 function Verify() {
-  const [textColor, setTextColor] = useState("#e5e7eb");
-  const [bgColor, setBgColor] = useState("#29596B");
   const [sent, setSent] = useState(false);
-  const [error, setError] = useState(true);
+  const [error, setError] = useState(false);
+
+  const sendVerify = () => {
+    sendEmailVerification(auth.currentUser).then(() => {
+      setSent(true);
+    });
+  };
+
+  const checkVerify = () => {
+    if (auth.currentUser.emailVerified && sent != true)
+      window.location.assign("/dashboard");
+    else if (auth.currentUser.emailVerified && sent === true) makeAcct();
+    else setError(true);
+  };
+
+  useEffect(() => {
+    onAuthStateChanged(auth, () => {
+      checkVerify();
+    });
+  }, []);
+
+  const makeAcct = () => {
+    const docRef = doc(db, "fusionmania", auth.currentUser.uid);
+    setDoc(docRef, {
+      email: auth.currentUser.email,
+      uid: auth.currentUser.uid,
+      verified: auth.currentUser.emailVerified,
+      startPrim: 0,
+      startSecond: 0,
+    }).then(() => {
+      const fileRef = ref(
+        store,
+        `fusionmania/${auth.currentUser.uid}/initial.txt`
+      );
+      uploadBytes(fileRef).then(() => {
+        window.location.assign("/setup");
+      });
+    });
+  };
   return (
     <React.Fragment>
       <NavBarMain />
@@ -20,11 +60,13 @@ function Verify() {
             <h1 className="text-[60px] text-theme-50">Verify your Account</h1>
             <p
               className={`text-white text-[30px] p-2 rounded-lg bg-[#29596B] hover:bg-white hover:text-[#29596B] border-2 border-[#29596B] transition-all ease-in-out duration-300 hover:cursor-pointer`}
+              onClick={sendVerify}
             >
               Send Verification
             </p>
             <p
               className={`text-white text-[30px] p-2 rounded-lg bg-[#29596B] hover:bg-white hover:text-[#29596B] border-2 border-[#29596B] transition-all ease-in-out duration-300 hover:cursor-pointer`}
+              onClick={checkVerify}
             >
               Check Verification
             </p>

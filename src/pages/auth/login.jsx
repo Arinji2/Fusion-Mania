@@ -33,7 +33,7 @@ function Login() {
 
   useEffect(() => {
     onAuthStateChanged(auth, () => {
-      if (auth.currentUser !== null) {
+      if (auth.currentUser !== null && logins !== 0) {
         if (auth.currentUser.emailVerified)
           window.location.assign("/dashboard");
         else window.location.assign("/verify");
