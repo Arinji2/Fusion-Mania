@@ -57,14 +57,14 @@ function Choose() {
   return (
     <React.Fragment>
       <NavBarMain mode={1} />
-      <div className="w-full h-screen relative overflow-hidden">
+      <div className="w-full h-[110vh] md:h-screen relative md:overflow-hidden">
         <img
           src={SetupPic}
           className="w-full h-full object-cover setup absolute"
         />
-        <div className="w-full h-screen opacity-70 bg-theme-0 absolute"></div>
+        <div className="w-full h-full opacity-70 bg-theme-0 absolute"></div>
         <div className="w-full h-screen flex flex-col items-center justify-start">
-          <div className="w-full h-[30vh]"></div>
+          <div className="w-full h-[30vh] mb-36 md:mb-0">EE</div>
           <div className="w-full h-full flex flex-col items-center justify-start z-10 gap-5">
             <h1 className="text-theme-50 text-[40px] md:text-[60px]">
               Welcome Explorer
@@ -72,8 +72,8 @@ function Choose() {
             <p className="text-white text-[20px] md:text-[50px]">
               Choose your Starter Avatar
             </p>
-            <div className="w-full flex flex-row items-center justify-evenly">
-              <div className="w-[200px] h-[300px] flex flex-col items-center justify-start relative gap-5">
+            <div className="w-[95%] flex flex-row items-center justify-evenly md:gap-0 gap-4 m-2">
+              <div className="w-[180px] md:w-[200px] h-[300px] flex flex-col items-center justify-start relative gap-5">
                 <div
                   className="bg-theme-10 w-full h-[250px] rounded-lg"
                   ref={avatar1}
@@ -85,7 +85,7 @@ function Choose() {
                   <FontAwesomeIcon icon={faRandom} />
                 </div>
               </div>
-              <div className="w-[200px] h-[300px] flex flex-col items-center justify-start relative gap-5">
+              <div className="w-[180px] md:w-[200px] h-[300px] flex flex-col items-center justify-start relative gap-5">
                 <div
                   className="bg-theme-10 w-full h-[250px] rounded-lg"
                   ref={avatar2}
