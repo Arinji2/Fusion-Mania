@@ -6,6 +6,7 @@ import Create from "./pages/auth/create";
 import Verify from "./pages/auth/verify";
 import Forgot from "./pages/auth/forgot";
 import Name from "./pages/setup/name";
+import Choose from "./pages/setup/choose";
 function App() {
   return (
     <div>
@@ -17,6 +18,7 @@ function App() {
           <Route path="/verify" element={<Verify />}></Route>
           <Route path="/forgot" element={<Forgot />}></Route>
           <Route path="/setup/name" element={<Name />}></Route>
+          <Route path="/setup/choose" element={<Choose />}></Route>
         </Routes>
       </Router>
     </div>

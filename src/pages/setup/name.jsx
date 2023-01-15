@@ -6,15 +6,18 @@ import { updateDoc, doc } from "firebase/firestore";
 import { Link, redirect, useNavigate } from "react-router-dom";
 function Name() {
   const [name, setName] = useState("Hunter");
+  const [redirect, setRedirect] = useState(false);
+  const naviage = useNavigate();
   const updateName = () => {
     const docRef = doc(db, "fusionmania", auth.currentUser.uid);
 
     updateDoc(docRef, {
       name: name,
     }).then(() => {
-      window.location.assign("/setup");
+      naviage("/setup/choose");
     });
   };
+
   return (
     <React.Fragment>
       <NavBarMain mode={1} />
