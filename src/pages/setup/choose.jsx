@@ -32,6 +32,7 @@ function Choose() {
       eyes: ["happy"],
       body: ["rounded"],
       skinColor: ["623d36"],
+      backgroundColor: ["b6e3f4"],
     });
     avatar1.current.innerHTML = svg;
   };
@@ -45,6 +46,7 @@ function Choose() {
       eyes: ["glasses"],
       body: ["rounded"],
       skinColor: ["b16a5b"],
+      backgroundColor: ["b6e3f4"],
     });
 
     avatar2.current.innerHTML = svg;

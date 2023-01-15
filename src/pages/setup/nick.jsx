@@ -30,6 +30,7 @@ function Nick() {
       eyes: ["happy"],
       body: ["rounded"],
       skinColor: ["623d36"],
+      backgroundColor: ["b6e3f4"],
     };
 
     const fileRef = ref(
@@ -58,6 +59,7 @@ function Nick() {
       eyes: ["glasses"],
       body: ["rounded"],
       skinColor: ["b16a5b"],
+      backgroundColor: ["b6e3f4"],
     };
 
     const fileRef = ref(
