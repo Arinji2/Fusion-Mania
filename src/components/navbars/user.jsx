@@ -86,7 +86,7 @@ function User() {
         >
           <p
             className={`text-[30px] text-theme-40 nav mt-20 ${
-              text ? "visible" : "invisible"
+              text ? "block" : "hidden"
             }`}
           >
             Materialize
@@ -95,7 +95,7 @@ function User() {
         <Link to="/merge" className="flex flex-col items-center justify-center">
           <p
             className={`text-[30px] text-theme-40 nav ${
-              text ? "visible" : "invisible"
+              text ? "block" : "hidden"
             }`}
           >
             Merge
@@ -107,7 +107,7 @@ function User() {
         >
           <p
             className={`text-[30px] text-theme-40 nav ${
-              text ? "visible" : "invisible"
+              text ? "block" : "hidden"
             }`}
           >
             Manage
@@ -119,7 +119,7 @@ function User() {
         >
           <p
             className={`text-[30px] text-theme-30 nav pb-10 ${
-              text ? "visible" : "invisible"
+              text ? "block" : "hidden"
             }`}
           >
             Account

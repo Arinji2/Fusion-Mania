@@ -77,6 +77,7 @@ function Nick() {
         updateDoc(docRef, {
           startPrim: Uid1,
           startSecond: Uid2,
+          deck: 2,
         }).then(() => {
           navigate("/dashboard");
         });

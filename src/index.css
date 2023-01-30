@@ -26,8 +26,24 @@
   background: #333;
 }
 
-::-webkit-scrollbar-thumb:hover {
-  background: #555;
+#stats::-webkit-scrollbar-thumb:hover {
+  background: transparent;
+}
+
+#stats::-webkit-scrollbar {
+  width: 0px;
+}
+
+#stats::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+#stats::-webkit-scrollbar-thumb {
+  background: transparent;
+}
+
+#stats::-webkit-scrollbar-thumb:hover {
+  background: transparent;
 }
 
 .setup {

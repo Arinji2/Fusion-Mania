@@ -17,10 +17,13 @@ function Verify() {
   };
 
   const checkVerify = () => {
+    auth.currentUser.reload();
     if (auth.currentUser.emailVerified && sent != true)
       window.location.assign("/dashboard");
     else if (auth.currentUser.emailVerified && sent === true) makeAcct();
-    else setError(true);
+    else {
+      setError(true);
+    }
   };
 
   useEffect(() => {
@@ -37,6 +40,7 @@ function Verify() {
       verified: auth.currentUser.emailVerified,
       startPrim: 0,
       startSecond: 0,
+      deck: 0,
     }).then(() => {
       const fileRef = ref(
         store,
