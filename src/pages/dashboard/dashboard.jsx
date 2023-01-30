@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
 import User from "../../components/navbars/user";
 import Bg from "../../assets/Account.png";
+import Materialize from "../../assets/Materialize.png";
+import Merge from "../../assets/Merge.png";
+import Manage from "../../assets/Manage.png";
 import { faUser } from "@fortawesome/fontawesome-free-regular";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChessBoard } from "@fortawesome/fontawesome-free-solid";
@@ -27,6 +30,7 @@ function Dashboard() {
 
           getStarter(setStarter1, res.data().startPrim);
           getStarter(setStarter2, res.data().startSecond);
+          unsubscribe();
         });
       }
     });
@@ -41,15 +45,14 @@ function Dashboard() {
       const string = new TextDecoder().decode(res);
       const obj = JSON.parse(string);
       dataMethod(obj.name);
-      unsubscribe();
     });
   };
   return (
     <React.Fragment>
       <User />
 
-      <div className="w-full md:h-[87vh] h-fit bg-theme-10">
-        <div className="flex flex-col items-center justify-start relative w-full h-full min-h-screen md:min-h-[87vh]">
+      <div className="w-full  h-fit bg-theme-10">
+        <div className="flex flex-col items-center justify-start relative w-full h-full ">
           <img src={Bg} className="w-full h-full absolute object-cover top-0" />
           <div className="absolute w-full h-full top-0 bg-theme-0 opacity-50"></div>
           <div className="w-full h-full flex flex-col items-center justify-start z-20">
@@ -71,6 +74,15 @@ function Dashboard() {
                 name={starter2.length > 0 ? starter2 : "Loading"}
                 icon={fa2}
               />
+            </div>
+            <div className="w-full h-fit flex flex-row items-center justify-evenly flex-wrap pb-10 mt-10 gap-y-10">
+              <Card
+                img={Materialize}
+                head="Materialize"
+                text="Create New Avatars"
+              />
+              <Card img={Merge} head="Merge" text="Merge Existing Avatars" />
+              <Card img={Manage} head="Manage" text="Manage Existing Avatars" />
             </div>
           </div>
         </div>
@@ -96,6 +108,22 @@ function StatsNum({ name, icon }) {
         <img src={icon} className="text-white w-[40px] h-[40px]" />
       </div>
       <p className="text-white text-[30px] mb-5">{name}</p>
+    </div>
+  );
+}
+
+function Card({ img, head, text }) {
+  return (
+    <div className="h-[360px] w-[250px] rounded-lg bg-black overflow-clip relative group hover:cursor-pointer">
+      <img
+        src={img}
+        className="w-full h-full object-cover rounded-lg absolute group-hover:scale-110 transition-all ease-in-out duration-300"
+      />
+      <div className="w-full h-full bg-theme-0 opacity-60 z-10 absolute"></div>
+      <div className="flex flex-col items-center justify-start w-full h-full">
+        <p className="z-20 text-theme-40 text-[40px] mt-20">{head}</p>
+        <p className="absolute bottom-10 text-white text-[20px] z-20">{text}</p>
+      </div>
     </div>
   );
 }
