@@ -26,11 +26,6 @@ function Nick() {
       uid: Uid1,
       seed: av1,
       name: nick1,
-      clothingColor: ["456dff"],
-      eyes: ["happy"],
-      body: ["rounded"],
-      skinColor: ["623d36"],
-      backgroundColor: ["b6e3f4"],
     };
 
     const fileRef = ref(
@@ -55,11 +50,6 @@ function Nick() {
       uid: Uid2,
       seed: av2,
       name: nick2,
-      clothingColor: ["54d7c7"],
-      eyes: ["glasses"],
-      body: ["rounded"],
-      skinColor: ["b16a5b"],
-      backgroundColor: ["b6e3f4"],
     };
 
     const fileRef = ref(

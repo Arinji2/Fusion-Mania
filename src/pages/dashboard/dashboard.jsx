@@ -13,6 +13,7 @@ import { onAuthStateChanged } from "firebase/auth";
 import { auth, db, store } from "../../firebase";
 import { doc, getDoc } from "firebase/firestore";
 import { getBlob, getBytes, getDownloadURL, ref } from "firebase/storage";
+import { Link } from "react-router-dom";
 
 function Dashboard() {
   const [data, setData] = useState({
@@ -76,11 +77,16 @@ function Dashboard() {
               />
             </div>
             <div className="w-full h-fit flex flex-row items-center justify-evenly flex-wrap pb-10 mt-10 gap-y-10">
-              <Card
-                img={Materialize}
-                head="Materialize"
-                text="Create New Avatars"
-              />
+              <Link
+                to="/materialize"
+                className="flex flex-col items-center justify-center"
+              >
+                <Card
+                  img={Materialize}
+                  head="Materialize"
+                  text="Create New Avatars"
+                />
+              </Link>
               <Card img={Merge} head="Merge" text="Merge Existing Avatars" />
               <Card img={Manage} head="Manage" text="Manage Existing Avatars" />
             </div>

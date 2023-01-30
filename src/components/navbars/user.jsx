@@ -22,7 +22,10 @@ function User() {
     <React.Fragment>
       <div className="h-[13vh] w-full sticky top-0 bg-black z-50  flex-row items-center justify-between md:flex hidden shadow-md shadow-black">
         <div className="h-full w-[60%]  md:w-[30%] flex flex-col items-start justify-center">
-          <Link to="/" className="flex flex-col items-center justify-center">
+          <Link
+            to="/dashboard"
+            className="flex flex-col items-center justify-center"
+          >
             <p className="text-[25px] text-white nav ml-10">Fusion Mania</p>
           </Link>
         </div>
@@ -56,9 +59,11 @@ function User() {
         </div>
       </div>
       <div className="h-[13vh] w-full sticky top-0 bg-black z-50  flex-row items-center justify-between md:hidden flex shadow-md shadow-black">
-        <p className="text-white text-[25px] nav  w-full text-center">
-          Fusion Mania
-        </p>
+        <Link to="/dashboard" className="w-full">
+          <p className="text-white text-[25px] nav  w-full text-center">
+            Fusion Mania
+          </p>
+        </Link>
         <p
           className="text-theme-30 text-[25px] absolute right-5"
           onClick={toggleNav}

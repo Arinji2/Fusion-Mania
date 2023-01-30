@@ -9,6 +9,7 @@ import Name from "./pages/setup/name";
 import Choose from "./pages/setup/choose";
 import Nick from "./pages/setup/nick";
 import Dashboard from "./pages/dashboard/dashboard";
+import Main from "./pages/materialize/main";
 function App() {
   return (
     <div>
@@ -23,6 +24,7 @@ function App() {
           <Route path="/setup/choose" element={<Choose />}></Route>
           <Route path="/setup/nick" element={<Nick />}></Route>
           <Route path="/dashboard" element={<Dashboard />}></Route>
+          <Route path="/materialize" element={<Main />}></Route>
         </Routes>
       </Router>
     </div>
