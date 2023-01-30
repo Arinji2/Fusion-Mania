@@ -12,6 +12,7 @@ function Verify() {
   const sendVerify = () => {
     sendEmailVerification(auth.currentUser).then(() => {
       setSent(true);
+      setError(false);
     });
   };
 
