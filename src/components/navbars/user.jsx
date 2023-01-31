@@ -65,7 +65,7 @@ function User() {
           </p>
         </Link>
         <p
-          className="text-theme-30 text-[25px] absolute right-5"
+          className="text-theme-30 text-[25px] absolute right-5 z-50"
           onClick={toggleNav}
         >
           <FontAwesomeIcon
