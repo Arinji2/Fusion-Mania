@@ -21,19 +21,19 @@ function Name() {
   return (
     <React.Fragment>
       <NavBarMain mode={1} />
-      <div className="w-full h-screen relative overflow-hidden">
+      <div className="relative h-screen w-full overflow-hidden">
         <img
           src={SetupPic}
-          className="w-full h-full object-cover setup absolute"
+          className="setup absolute h-full w-full object-cover"
         />
-        <div className="w-full h-screen opacity-70 bg-theme-0 absolute"></div>
-        <div className="w-full h-screen flex flex-col items-center justify-start">
-          <div className="w-full h-[30vh]"></div>
-          <div className="w-full h-full flex flex-col items-center justify-start z-10 gap-10">
-            <h1 className="text-theme-50 text-[40px] md:text-[60px]">
+        <div className="absolute h-screen w-full bg-theme-0 opacity-70"></div>
+        <div className="flex h-screen w-full flex-col items-center justify-start">
+          <div className="h-[30vh] w-full"></div>
+          <div className="z-10 flex h-full w-full flex-col items-center justify-start gap-10">
+            <h1 className="text-[40px] text-theme-50 md:text-[60px]">
               Welcome Explorer
             </h1>
-            <p className="text-white text-[30px] md:text-[50px]">
+            <p className="text-[30px] text-white md:text-[50px]">
               Name Yourself
             </p>
             <input
@@ -41,13 +41,13 @@ function Name() {
               autoCapitalize="off"
               autoComplete="off"
               spellCheck="false"
-              className="rounded-lg h-[42px] w-[95vw] md:w-[50vw] text-[20px] mt-10 p-4 outline-none  bg-[#29596B] text-left text-white"
+              className="mt-10 h-[42px] w-[95vw] rounded-lg bg-[#29596B] p-4 text-left text-[20px]  text-white outline-none md:w-[50vw]"
               onChange={(e) => {
                 setName(e.currentTarget.value);
               }}
             ></input>
             <p
-              className="absolute bottom-10 p-2 bg-theme-30 text-white text-3xl rounded-lg hover:text-theme-30 hover:bg-white transition-all ease-in-out duration-300 hover:cursor-pointer"
+              className="absolute bottom-10 rounded-lg bg-theme-30 p-2 text-3xl text-white transition-all duration-300 ease-in-out hover:cursor-pointer hover:bg-white hover:text-theme-30"
               onClick={updateName}
             >
               Lets Roll!

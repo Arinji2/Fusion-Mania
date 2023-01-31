@@ -22,33 +22,33 @@ function Hero() {
   return (
     <React.Fragment>
       <NavBarMain />
-      <div className="bg-white w-full h-screen">
-        <div className="w-full h-screen absolute overflow-hidden">
+      <div className="h-screen w-full bg-white">
+        <div className="absolute h-screen w-full overflow-hidden">
           <img
             src={HeroPicMob}
             alt={"Hero Picture"}
-            className="w-full h-screen absolute object-cover object-center block md:hidden"
+            className="absolute block h-screen w-full object-cover object-center md:hidden"
           />
           <img
             src={HeroPicPc}
             alt={"Hero Picture"}
-            className="w-full h-screen absolute object-cover hidden md:block"
+            className="absolute hidden h-screen w-full object-cover md:block"
           />
-          <div className="absolute w-full h-screen opacity-60 bg-theme-0"></div>
+          <div className="absolute h-screen w-full bg-theme-0 opacity-60"></div>
         </div>
-        <div className="relative bg-transparent w-full h-screen z-20 flex flex-col items-center justify-end">
-          <div className="w-full h-[80vh] flex flex-col items-center justify-start gap-20">
-            <h1 className="text-6xl md:text-[150px]  text-theme-40 text-center">
+        <div className="relative z-20 flex h-screen w-full flex-col items-center justify-end bg-transparent">
+          <div className="flex h-[80vh] w-full flex-col items-center justify-start gap-20">
+            <h1 className="text-center text-6xl  text-theme-40 md:text-[150px]">
               Fusion Mania
             </h1>
-            <p className="text-white text-[30px] md:text-[40px] pt-20">
+            <p className="pt-20 text-[30px] text-white md:text-[40px]">
               Lead your Destiny
             </p>
             <Link
               to="/create"
               className="flex flex-col items-center justify-center"
             >
-              <p className="p-4 bg-theme-40 rounded-lg text-white text-[20px]  md:text-[20px] absolute bottom-10 hover:cursor-pointer hover:bg-white hover:text-theme-40 transition-all ease-in-out duration-300 block">
+              <p className="absolute bottom-10 block rounded-lg bg-theme-40  p-4 text-[20px] text-white transition-all duration-300 ease-in-out hover:cursor-pointer hover:bg-white hover:text-theme-40 md:text-[20px]">
                 Start your Journey
               </p>
             </Link>
@@ -61,32 +61,32 @@ function Hero() {
 
 function What() {
   return (
-    <div className="w-full h-screen bg-theme-10 flex flex-col items-center justify-start gap-10 overflow-hidden relative">
-      <h2 className="mt-10 text-white text-[50px] md:text-[60px] m-2">
+    <div className="relative flex h-screen w-full flex-col items-center justify-start gap-10 overflow-hidden bg-theme-10">
+      <h2 className="m-2 mt-10 text-[50px] text-white md:text-[60px]">
         What is Fusion Mania
       </h2>
-      <p className="text-theme-40 text-[20px]  md:text-[30px] mt-20 m-2">
+      <p className="m-2 mt-20  text-[20px] text-theme-40 md:text-[30px]">
         Fusion Mania is a Online RNG Game, with Avatars of different rarities
         and appearances. You can choose between merging existing avatars or
         generating new ones, with each avatar being unique.
       </p>
-      <div className="absolute -bottom-10  flex-row items-center justify-evenly w-full hidden md:flex">
+      <div className="absolute -bottom-10  hidden w-full flex-row items-center justify-evenly md:flex">
         <img src={icon1} />
         <img src={icon2} />
         <img src={icon3} />
       </div>
-      <div className="bottom-10 flex md:hidden flex-row items-center justify-evenly w-full">
+      <div className="bottom-10 flex w-full flex-row items-center justify-evenly md:hidden">
         <img
           src={icon1}
-          className="w-[100px] aspect-auto shadow-md shadow-black pl-2 rounded-lg"
+          className="aspect-auto w-[100px] rounded-lg pl-2 shadow-md shadow-black"
         />
         <img
           src={icon2}
-          className="w-[100px] aspect-auto shadow-md shadow-black  rounded-lg"
+          className="aspect-auto w-[100px] rounded-lg shadow-md  shadow-black"
         />
         <img
           src={icon3}
-          className="w-[100px] aspect-auto shadow-md shadow-black pr-2 rounded-lg"
+          className="aspect-auto w-[100px] rounded-lg pr-2 shadow-md shadow-black"
         />
       </div>
     </div>
@@ -95,31 +95,31 @@ function What() {
 
 function End() {
   return (
-    <div className="w-full h-screen bg-white relative">
-      <div className="w-full h-screen absolute overflow-hidden">
+    <div className="relative h-screen w-full bg-white">
+      <div className="absolute h-screen w-full overflow-hidden">
         <img
           src={EndPic}
           alt={"Hero Picture"}
-          className="w-full h-screen absolute object-cover object-center"
+          className="absolute h-screen w-full object-cover object-center"
         />
-        <div className="absolute w-full h-screen opacity-60 bg-theme-0"></div>
+        <div className="absolute h-screen w-full bg-theme-0 opacity-60"></div>
       </div>
-      <div className="flex flex-col items-center justify-center w-full">
-        <h1 className="md:w-[85vw] text-[40px] md:text-[70px] text-theme-50 z-10 mt-10 md:block hidden">
+      <div className="flex w-full flex-col items-center justify-center">
+        <h1 className="z-10 mt-10 hidden text-[40px] text-theme-50 md:block md:w-[85vw] md:text-[70px]">
           What are you Waiting For?
         </h1>
-        <h1 className="md:w-[85vw] text-[40px] md:text-[70px] text-theme-50 z-10 mt-10 md:mt-0">
+        <h1 className="z-10 mt-10 text-[40px] text-theme-50 md:mt-0 md:w-[85vw] md:text-[70px]">
           Your Destiny Awaits you
         </h1>
         <Link
           to="/create"
           className="flex flex-col items-center justify-center"
         >
-          <p className="p-4 bg-theme-40 rounded-lg text-white text-[20px]  md:text-[30px] absolute bottom-[40%] hover:cursor-pointer hover:bg-white hover:text-theme-40 transition-all ease-in-out duration-300 z-10">
+          <p className="absolute bottom-[40%] z-10 rounded-lg bg-theme-40  p-4 text-[20px] text-white transition-all duration-300 ease-in-out hover:cursor-pointer hover:bg-white hover:text-theme-40 md:text-[30px]">
             Start your Journey
           </p>
         </Link>
-        <p className="z-10 text-white text-[20px] md:text-[40px] absolute bottom-10 m-2">
+        <p className="absolute bottom-10 z-10 m-2 text-[20px] text-white md:text-[40px]">
           Powered By: Dicebear Avatars
         </p>
       </div>

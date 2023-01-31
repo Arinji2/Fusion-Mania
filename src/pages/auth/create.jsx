@@ -30,69 +30,69 @@ function Create() {
   return (
     <React.Fragment>
       <NavBarMain mode={1} />
-      <div className="w-full h-screen relative overflow-hidden">
-        <div className="absolute flex flex-col items-center justify-center w-full h-screen md:h-screen overflow-hidden">
+      <div className="relative h-screen w-full overflow-hidden">
+        <div className="absolute flex h-screen w-full flex-col items-center justify-center overflow-hidden md:h-screen">
           <img
             src={LoginPic}
-            className="absolute object-cover h-full w-full object-center"
+            className="absolute h-full w-full object-cover object-center"
           />
-          <div className="w-full h-full bg-theme-0 opacity-70 absolute"></div>
+          <div className="absolute h-full w-full bg-theme-0 opacity-70"></div>
         </div>
-        <div className="w-full h-screen flex flex-col items-center justify-end">
-          <div className="w-full min-h-[75vh] flex flex-col md:flex-row items-start justify-between z-10">
-            <div className="md:w-[50%] w-full  h-full flex flex-col items-center justify-end md:justify-center mt-10 md:mt-0">
-              <h1 className="text-5xl md:text-7xl text-theme-40">
+        <div className="flex h-screen w-full flex-col items-center justify-end">
+          <div className="z-10 flex min-h-[75vh] w-full flex-col items-start justify-between md:flex-row">
+            <div className="mt-10 flex  h-full w-full flex-col items-center justify-end md:mt-0 md:w-[50%] md:justify-center">
+              <h1 className="text-5xl text-theme-40 md:text-7xl">
                 Create your Account
               </h1>
-              <div className="w-full h-full flex flex-col items-center md:items-end justify-start">
-                <div className="flex flex-col items-start justify-start text-white mt-10 md:mt-10 w-[90%] md:mr-5">
+              <div className="flex h-full w-full flex-col items-center justify-start md:items-end">
+                <div className="mt-10 flex w-[90%] flex-col items-start justify-start text-white md:mt-10 md:mr-5">
                   <p className="text-[30px]">Email</p>
                   <input
                     type={"email"}
                     autoCapitalize="off"
                     autoComplete="off"
                     spellCheck="false"
-                    className="rounded-lg min-h-[42px] w-full text-[20px] p-4 outline-none  bg-[#29596B] text-left"
+                    className="min-h-[42px] w-full rounded-lg bg-[#29596B] p-4 text-left  text-[20px] outline-none"
                     onChange={(e) => {
                       setEmail(e.currentTarget.value);
                     }}
                   ></input>
                 </div>
-                <div className="flex flex-col items-start justify-start text-white mt-10 md:mt-20 w-[90%] md:mr-5">
+                <div className="mt-10 flex w-[90%] flex-col items-start justify-start text-white md:mt-20 md:mr-5">
                   <p className="text-[30px]">Password</p>
-                  <div className="flex flex-row items-center justify-evenly w-full">
+                  <div className="flex w-full flex-row items-center justify-evenly">
                     <input
                       type={"password"}
                       autoCapitalize="off"
                       autoComplete="off"
                       spellCheck="false"
-                      className="rounded-lg min-h-[42px] w-full text-[20px] p-4 outline-none  bg-[#29596B] text-left"
+                      className="min-h-[42px] w-full rounded-lg bg-[#29596B] p-4 text-left  text-[20px] outline-none"
                       onChange={(e) => {
                         setPassword(e.currentTarget.value);
                       }}
                     ></input>
                   </div>
                 </div>
-                <div className="w-full flex flex-row items-center justify-evenly mt-10 gap-5">
+                <div className="mt-10 flex w-full flex-row items-center justify-evenly gap-5">
                   <p
-                    className="text-white p-2 md:pr-4 md:pl-4 rounded-lg bg-theme-30 text-[15px] md:text-[25px] hover:text-theme-30 hover:bg-white border-2 border-theme-30 transition-all ease-in-out duration-300 hover:cursor-pointer"
+                    className="rounded-lg border-2 border-theme-30 bg-theme-30 p-2 text-[15px] text-white transition-all duration-300 ease-in-out hover:cursor-pointer hover:bg-white hover:text-theme-30 md:pr-4 md:pl-4 md:text-[25px]"
                     onClick={createUser}
                   >
                     Create
                   </p>
                   <Link to="/login">
-                    <p className="text-white p-2 md:pr-4 md:pl-4 rounded-lg bg-theme-30 text-[15px] md:text-[25px] hover:text-theme-30 hover:bg-white border-2 border-theme-30 transition-all ease-in-out duration-300 hover:cursor-pointer">
+                    <p className="rounded-lg border-2 border-theme-30 bg-theme-30 p-2 text-[15px] text-white transition-all duration-300 ease-in-out hover:cursor-pointer hover:bg-white hover:text-theme-30 md:pr-4 md:pl-4 md:text-[25px]">
                       Login Instead
                     </p>
                   </Link>
                 </div>
               </div>
             </div>
-            <div className="md:w-[50%] w-full h-full flex flex-col items-center justify-center">
+            <div className="flex h-full w-full flex-col items-center justify-center md:w-[50%]">
               <div
                 className={
                   error
-                    ? "w-fit h-fit bg-red-600 text-white flex flex-col items-center justify-center p-2 rounded-lg mt-2"
+                    ? "mt-2 flex h-fit w-fit flex-col items-center justify-center rounded-lg bg-red-600 p-2 text-white"
                     : "hidden"
                 }
               >

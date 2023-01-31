@@ -52,14 +52,14 @@ function Dashboard() {
     <React.Fragment>
       <User />
 
-      <div className="w-full  h-fit bg-theme-10">
-        <div className="flex flex-col items-center justify-start relative w-full h-full ">
-          <img src={Bg} className="w-full h-full absolute object-cover top-0" />
-          <div className="absolute w-full h-full top-0 bg-theme-0 opacity-50"></div>
-          <div className="w-full h-full flex flex-col items-center justify-start z-20">
-            <h1 className="text-[50px] text-theme-40 mt-10">User Dashboard</h1>
+      <div className="h-fit  w-full bg-theme-10">
+        <div className="relative flex h-full w-full flex-col items-center justify-start ">
+          <img src={Bg} className="absolute top-0 h-full w-full object-cover" />
+          <div className="absolute top-0 h-full w-full bg-theme-0 opacity-50"></div>
+          <div className="z-20 flex h-full w-full flex-col items-center justify-start">
+            <h1 className="mt-10 text-[50px] text-theme-40">User Dashboard</h1>
             <div
-              className="flex flex-row items-center md:justify-evenly overflow-x-scroll w-[95vw] h-full gap-10 mt-10"
+              className="mt-10 flex h-full w-[95vw] flex-row items-center gap-10 overflow-x-scroll md:justify-evenly"
               id="stats"
             >
               <Stats name={data ? data.name : "Loading.."} icon={faUser} />
@@ -76,7 +76,7 @@ function Dashboard() {
                 icon={fa2}
               />
             </div>
-            <div className="w-full h-fit flex flex-row items-center justify-evenly flex-wrap pb-10 mt-10 gap-y-10">
+            <div className="mt-10 flex h-fit w-full flex-row flex-wrap items-center justify-evenly gap-y-10 pb-10">
               <Link
                 to="/materialize"
                 className="flex flex-col items-center justify-center"
@@ -99,36 +99,36 @@ function Dashboard() {
 
 function Stats({ name, icon }) {
   return (
-    <div className="min-w-[251px] min-h-[190px] bg-black rounded-lg flex flex-col items-center justify-between">
-      <div className="w-[87px] h-[83px] rounded-full bg-theme-0 mt-5 flex flex-col items-center justify-center">
-        <FontAwesomeIcon icon={icon} className="text-theme-40 text-[40px]" />
+    <div className="flex min-h-[190px] min-w-[251px] flex-col items-center justify-between rounded-lg bg-black">
+      <div className="mt-5 flex h-[83px] w-[87px] flex-col items-center justify-center rounded-full bg-theme-0">
+        <FontAwesomeIcon icon={icon} className="text-[40px] text-theme-40" />
       </div>
-      <p className="text-white text-[30px] mb-5">{name}</p>
+      <p className="mb-5 text-[30px] text-white">{name}</p>
     </div>
   );
 }
 function StatsNum({ name, icon }) {
   return (
-    <div className="min-w-[251px] min-h-[190px] bg-black rounded-lg flex flex-col items-center justify-between">
-      <div className="w-[87px] h-[83px] rounded-full bg-theme-0 mt-5 flex flex-col items-center justify-center">
-        <img src={icon} className="text-white w-[40px] h-[40px]" />
+    <div className="flex min-h-[190px] min-w-[251px] flex-col items-center justify-between rounded-lg bg-black">
+      <div className="mt-5 flex h-[83px] w-[87px] flex-col items-center justify-center rounded-full bg-theme-0">
+        <img src={icon} className="h-[40px] w-[40px] text-white" />
       </div>
-      <p className="text-white text-[30px] mb-5">{name}</p>
+      <p className="mb-5 text-[30px] text-white">{name}</p>
     </div>
   );
 }
 
 function Card({ img, head, text }) {
   return (
-    <div className="h-[360px] w-[250px] rounded-lg bg-black overflow-clip relative group hover:cursor-pointer">
+    <div className="group relative h-[360px] w-[250px] overflow-clip rounded-lg bg-black hover:cursor-pointer">
       <img
         src={img}
-        className="w-full h-full object-cover rounded-lg absolute group-hover:scale-110 transition-all ease-in-out duration-300"
+        className="absolute h-full w-full rounded-lg object-cover transition-all duration-300 ease-in-out group-hover:scale-110"
       />
-      <div className="w-full h-full bg-theme-0 opacity-60 z-10 absolute"></div>
-      <div className="flex flex-col items-center justify-start w-full h-full">
-        <p className="z-20 text-theme-40 text-[40px] mt-20">{head}</p>
-        <p className="absolute bottom-10 text-white text-[20px] z-20">{text}</p>
+      <div className="absolute z-10 h-full w-full bg-theme-0 opacity-60"></div>
+      <div className="flex h-full w-full flex-col items-center justify-start">
+        <p className="z-20 mt-20 text-[40px] text-theme-40">{head}</p>
+        <p className="absolute bottom-10 z-20 text-[20px] text-white">{text}</p>
       </div>
     </div>
   );

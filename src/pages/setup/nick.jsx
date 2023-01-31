@@ -121,25 +121,25 @@ function Nick() {
   return (
     <React.Fragment>
       <NavBarMain mode={1} />
-      <div className="w-full h-[110vh] md:h-screen relative md:overflow-hidden">
+      <div className="relative h-[110vh] w-full md:h-screen md:overflow-hidden">
         <img
           src={SetupPic}
-          className="w-full h-full object-cover setup absolute"
+          className="setup absolute h-full w-full object-cover"
         />
-        <div className="w-full h-full opacity-70 bg-theme-0 absolute"></div>
-        <div className="w-full h-screen flex flex-col items-center justify-start">
-          <div className="w-full h-[30vh] mb-36 md:mb-0">EE</div>
-          <div className="w-full h-full flex flex-col items-center justify-start z-10 gap-5">
-            <h1 className="text-theme-50 text-[40px] md:text-[60px]">
+        <div className="absolute h-full w-full bg-theme-0 opacity-70"></div>
+        <div className="flex h-screen w-full flex-col items-center justify-start">
+          <div className="mb-36 h-[30vh] w-full md:mb-0">EE</div>
+          <div className="z-10 flex h-full w-full flex-col items-center justify-start gap-5">
+            <h1 className="text-[40px] text-theme-50 md:text-[60px]">
               Welcome Explorer
             </h1>
-            <p className="text-white text-[20px] md:text-[50px]">
+            <p className="text-[20px] text-white md:text-[50px]">
               Name your Starter Avatars
             </p>
-            <div className="w-[95%] flex flex-row items-center justify-evenly md:gap-0 gap-4 m-2">
-              <div className="w-[180px] md:w-[200px] h-[300px] flex flex-col items-center justify-start relative gap-5">
+            <div className="m-2 flex w-[95%] flex-row items-center justify-evenly gap-4 md:gap-0">
+              <div className="relative flex h-[300px] w-[180px] flex-col items-center justify-start gap-5 md:w-[200px]">
                 <div
-                  className="bg-theme-10 w-full h-[250px] rounded-lg"
+                  className="h-[250px] w-full rounded-lg bg-theme-10"
                   ref={avatar1}
                 ></div>
                 <input
@@ -147,15 +147,15 @@ function Nick() {
                   autoCapitalize="off"
                   autoComplete="off"
                   spellCheck="false"
-                  className=" outline-none p-2 w-[90%] h-[50px] bg-[#29596B] rounded-lg text-white text-2xl flex flex-col items-center justify-center hover:cursor-pointer text-left"
+                  className=" flex h-[50px] w-[90%] flex-col items-center justify-center rounded-lg bg-[#29596B] p-2 text-left text-2xl text-white outline-none hover:cursor-pointer"
                   onChange={(e) => {
                     setNick1(e.currentTarget.value);
                   }}
                 ></input>
               </div>
-              <div className="w-[180px] md:w-[200px] h-[300px] flex flex-col items-center justify-start relative gap-5">
+              <div className="relative flex h-[300px] w-[180px] flex-col items-center justify-start gap-5 md:w-[200px]">
                 <div
-                  className="bg-theme-10 w-full h-[250px] rounded-lg"
+                  className="h-[250px] w-full rounded-lg bg-theme-10"
                   ref={avatar2}
                 ></div>
                 <input
@@ -163,7 +163,7 @@ function Nick() {
                   autoCapitalize="off"
                   autoComplete="off"
                   spellCheck="false"
-                  className=" outline-none p-2 w-[90%] h-[50px] bg-[#29596B] rounded-lg text-white text-2xl flex flex-col items-center justify-center hover:cursor-pointer text-left"
+                  className=" flex h-[50px] w-[90%] flex-col items-center justify-center rounded-lg bg-[#29596B] p-2 text-left text-2xl text-white outline-none hover:cursor-pointer"
                   onChange={(e) => {
                     setNick2(e.currentTarget.value);
                   }}
@@ -171,7 +171,7 @@ function Nick() {
               </div>
             </div>
             <p
-              className=" p-2 bg-theme-30 text-white text-3xl rounded-lg hover:text-theme-30 hover:bg-white transition-all ease-in-out duration-300 hover:cursor-pointer mb-3"
+              className=" mb-3 rounded-lg bg-theme-30 p-2 text-3xl text-white transition-all duration-300 ease-in-out hover:cursor-pointer hover:bg-white hover:text-theme-30"
               onClick={uploadAv1}
             >
               Lets Roll!

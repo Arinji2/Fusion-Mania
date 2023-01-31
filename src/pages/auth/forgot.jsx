@@ -9,18 +9,18 @@ function Forgot() {
     <React.Fragment>
       <NavBarMain />
       <NavBarMain mode={1} />
-      <div className="w-full h-screen relative overflow-hidden">
-        <div className="absolute flex flex-col items-center justify-center w-full h-screen md:h-screen overflow-hidden">
-          <img src={LoginPic} className="absolute object-cover h-full w-full" />
-          <div className="w-full h-full bg-theme-0 opacity-70 absolute"></div>
+      <div className="relative h-screen w-full overflow-hidden">
+        <div className="absolute flex h-screen w-full flex-col items-center justify-center overflow-hidden md:h-screen">
+          <img src={LoginPic} className="absolute h-full w-full object-cover" />
+          <div className="absolute h-full w-full bg-theme-0 opacity-70"></div>
         </div>
-        <div className="w-full h-screen flex flex-col items-center justify-end z-10">
-          <div className="w-full h-[75vh] flex flex-col items-center justify-start z-10 gap-10">
+        <div className="z-10 flex h-screen w-full flex-col items-center justify-end">
+          <div className="z-10 flex h-[75vh] w-full flex-col items-center justify-start gap-10">
             <h1 className="text-[60px] text-theme-50">
               Reset your Account Password
             </h1>
             <p
-              className={`text-white text-[30px] p-2 rounded-lg bg-[#29596B] hover:bg-white hover:text-[#29596B] border-2 border-[#29596B] transition-all ease-in-out duration-300 hover:cursor-pointer`}
+              className={`rounded-lg border-2 border-[#29596B] bg-[#29596B] p-2 text-[30px] text-white transition-all duration-300 ease-in-out hover:cursor-pointer hover:bg-white hover:text-[#29596B]`}
               onClick={() => {
                 sendPasswordResetEmail(auth, auth.currentUser.email);
               }}
@@ -29,7 +29,7 @@ function Forgot() {
             </p>
             <Link to="/login">
               <p
-                className={`text-white text-[30px] p-2 rounded-lg bg-[#29596B] hover:bg-white hover:text-[#29596B] border-2 border-[#29596B] transition-all ease-in-out duration-300 hover:cursor-pointer`}
+                className={`rounded-lg border-2 border-[#29596B] bg-[#29596B] p-2 text-[30px] text-white transition-all duration-300 ease-in-out hover:cursor-pointer hover:bg-white hover:text-[#29596B]`}
               >
                 Back to Login
               </p>
