@@ -6,13 +6,17 @@ import { faCheck, faRandom } from "@fortawesome/fontawesome-free-solid";
 import { createAvatar } from "@dicebear/core";
 import { personas } from "@dicebear/collection";
 import { Link } from "react-router-dom";
-import { doc, getDoc } from "firebase/firestore";
-import { db, auth } from "../../firebase";
+import { doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
+import { db, auth, store } from "../../firebase";
 import { onAuthStateChanged } from "firebase/auth";
+import { ref, uploadBytes } from "firebase/storage";
 function Confirm() {
   const [seed, setSeed] = useState("");
   const [name, setName] = useState("");
   const [cards, setCards] = useState(0);
+  const [rating, setRating] = useState(0);
+  const [rateProps, setRateProps] = useState("");
+  const [uploaded, setUploaded] = useState(false);
   const container = useRef(null);
 
   const getFirebaseData = () => {
@@ -22,15 +26,72 @@ function Confirm() {
     });
   };
   const generateRating = () => {
-    const num = Math.floor(Math.random() * 5);
-    console.log(num);
+    const num = Math.ceil(Math.random() * 5);
+    switch (num) {
+      case 1:
+        setRating(1);
+        setRateProps("b6e3f4");
+        break;
+      case 2:
+        setRating(2);
+        setRateProps("c0aede");
+        break;
+      case 3:
+        setRating(3);
+        setRateProps("d1d4f9");
+        break;
+      case 4:
+        setRating(4);
+        setRateProps("ffd5dc");
+        break;
+      case 5:
+        setRating(5);
+        setRateProps("ffdfbf");
+        break;
+    }
+  };
+
+  const uploadCard = () => {
+    onAuthStateChanged(auth, () => {
+      if (auth.currentUser) {
+        const uid = Math.ceil(Math.random() * 1000000);
+        const data = {
+          uid: uid,
+          seed: seed,
+          name: name,
+          rating: rating,
+        };
+
+        const fileRef = ref(
+          store,
+          `fusionmania/${auth.currentUser.uid}/${uid}.json`
+        );
+
+        const jsonBlob = new Blob([JSON.stringify(data)], {
+          type: "application/json",
+        });
+
+        uploadBytes(fileRef, jsonBlob).then(() => {
+          const docRef = doc(db, "fusionmania", auth.currentUser.uid);
+          const docs = doc(db, "fusionmania", auth.currentUser.uid);
+          getDoc(docs).then((res) => {
+            updateDoc(docRef, {
+              deck: res.data().deck + 1,
+            });
+            setUploaded(true);
+          });
+        });
+      }
+    });
   };
   useEffect(() => {
     const flag = localStorage.getItem("completed");
-    if (flag === true) window.location.assign("/materialize");
+    if (flag === "true") window.location.assign("/materialize");
     setName(localStorage.getItem("name"));
     setSeed(localStorage.getItem("seed"));
-    onAuthStateChanged(auth, getFirebaseData);
+    onAuthStateChanged(auth, () => {
+      getFirebaseData();
+    });
     generateRating();
   }, []);
 
@@ -38,9 +99,11 @@ function Confirm() {
     if (seed.length > 0) {
       const svg = createAvatar(personas, {
         seed: seed,
+        backgroundColor: [rateProps],
       });
-
+      localStorage.setItem("completed", true);
       container.current.innerHTML = svg;
+      uploadCard();
     }
   }, [seed]);
   return (
@@ -61,7 +124,7 @@ function Confirm() {
               <div className="z-20 flex h-[420px] w-[300px] flex-col items-center justify-center rounded-3xl bg-black md:h-[500px] md:w-[380px]">
                 <div
                   ref={container}
-                  className="z-30 h-[380px]  w-[340px]"
+                  className="z-30 h-fit  w-[340px] overflow-hidden rounded-lg"
                 ></div>
               </div>
             </div>
@@ -76,19 +139,29 @@ function Confirm() {
               <p className="z-30 text-[30px] text-white">
                 Rating:{" "}
                 <span className="ml-10 text-theme-40">
-                  {name.length > 0 ? name : "Loading.."}
+                  {rating > 0 ? rating : "0"}
                 </span>
               </p>
               <p className="z-30 text-[30px] text-white">
                 Cards:{" "}
                 <span className="ml-10 text-theme-40">
-                  {cards > 0 ? cards : "Loading.."}
+                  {cards > 0 ? cards + 1 : "0"}
                 </span>
               </p>
-
-              <div className="z-20 mt-20  mb-10 flex h-[80px] w-fit flex-col items-center justify-center rounded-lg bg-theme-30  shadow-xl shadow-black transition-all duration-300 ease-in-out hover:scale-90 hover:cursor-pointer hover:shadow-md hover:shadow-black md:h-[100px]">
-                <p className="p-4 text-[40px] text-white">Back to Dashboard</p>
-              </div>
+              <Link
+                to="/dashboard"
+                className="flex flex-col items-center justify-center"
+              >
+                <div
+                  className={`z-20 mt-20  mb-10 flex h-[80px] w-fit flex-col items-center justify-center rounded-lg bg-theme-30  shadow-xl shadow-black transition-all duration-300 ease-in-out hover:scale-90 hover:cursor-pointer hover:shadow-md hover:shadow-black md:h-[100px] ${
+                    uploaded ? "visible" : "invisible"
+                  }`}
+                >
+                  <p className="p-4 text-[40px] text-white">
+                    Back to Dashboard
+                  </p>
+                </div>
+              </Link>
             </div>
           </div>
         </div>

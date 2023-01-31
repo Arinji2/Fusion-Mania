@@ -26,6 +26,7 @@ function Nick() {
       uid: Uid1,
       seed: av1,
       name: nick1,
+      rating: 1,
     };
 
     const fileRef = ref(
@@ -50,6 +51,7 @@ function Nick() {
       uid: Uid2,
       seed: av2,
       name: nick2,
+      rating: 1,
     };
 
     const fileRef = ref(

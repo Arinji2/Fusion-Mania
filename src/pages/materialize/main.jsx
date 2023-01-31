@@ -64,10 +64,12 @@ function Main() {
                 }}
               />
               <div className="mt-20 flex h-full w-full flex-row items-center justify-evenly">
-                <div className="z-20 mb-10 flex h-[80px] w-[40vw] flex-col items-center justify-center rounded-lg bg-theme-30 shadow-xl  shadow-black transition-all duration-300 ease-in-out hover:scale-90 hover:cursor-pointer hover:shadow-md hover:shadow-black md:h-[100px] md:w-[120px]">
+                <div
+                  className="z-20 mb-10 flex h-[80px] w-[40vw] flex-col items-center justify-center rounded-lg bg-theme-30 shadow-xl  shadow-black transition-all duration-300 ease-in-out hover:scale-90 hover:cursor-pointer hover:shadow-md hover:shadow-black md:h-[100px] md:w-[120px]"
+                  onClick={generateAvatar}
+                >
                   <FontAwesomeIcon
                     icon={faRandom}
-                    onClick={generateAvatar}
                     className="z-30 text-[40px] text-white md:text-[50px]"
                   />
                 </div>

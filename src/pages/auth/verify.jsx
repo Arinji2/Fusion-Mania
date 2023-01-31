@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import NavBarMain from "../../components/navbars/main";
 import LoginPic from "../../assets/auth.png";
 import { onAuthStateChanged, sendEmailVerification } from "firebase/auth";
-import { setDoc, doc } from "firebase/firestore";
+import { setDoc, doc, getDoc } from "firebase/firestore";
 import { ref, uploadBytes } from "firebase/storage";
 import { auth, db, store } from "../../firebase";
 function Verify() {
@@ -18,9 +18,13 @@ function Verify() {
 
   const checkVerify = () => {
     auth.currentUser.reload();
-    if (auth.currentUser.emailVerified && sent != true)
-      window.location.assign("/dashboard");
-    else if (auth.currentUser.emailVerified && sent === true) makeAcct();
+    if (auth.currentUser.emailVerified && sent != true) {
+      const docRef = doc(db, "fusionmania", auth.currentUser.uid);
+      getDoc(docRef).then((res) => {
+        if (res.exists() === false) makeAcct();
+        else window.location.assign("/dashboard");
+      });
+    } else if (auth.currentUser.emailVerified && sent === true) makeAcct();
     else {
       setError(true);
     }
