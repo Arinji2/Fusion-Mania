@@ -10,6 +10,7 @@ import Choose from "./pages/setup/choose";
 import Nick from "./pages/setup/nick";
 import Dashboard from "./pages/dashboard/dashboard";
 import Main from "./pages/materialize/main";
+import Confirm from "./pages/materialize/confirm";
 function App() {
   return (
     <div>
@@ -25,6 +26,7 @@ function App() {
           <Route path="/setup/nick" element={<Nick />}></Route>
           <Route path="/dashboard" element={<Dashboard />}></Route>
           <Route path="/materialize" element={<Main />}></Route>
+          <Route path="/materialize/confirm" element={<Confirm />}></Route>
         </Routes>
       </Router>
     </div>
