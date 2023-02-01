@@ -27,6 +27,7 @@ function Dashboard() {
       if (auth) {
         const docRef = doc(db, "fusionmania", auth.currentUser.uid);
         getDoc(docRef).then((res) => {
+          if (res.exists() === false) window.location.assign("/verify");
           setData(res.data());
 
           getStarter(setStarter1, res.data().startPrim);
@@ -64,7 +65,7 @@ function Dashboard() {
             >
               <Stats name={data ? data.name : "Loading.."} icon={faUser} />
               <Stats
-                name={data ? data.deck : "Loading.."}
+                name={data ? `${data.deck}/50` : "Loading.."}
                 icon={faChessBoard}
               />
               <StatsNum

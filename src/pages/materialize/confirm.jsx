@@ -121,10 +121,10 @@ function Confirm() {
           </h1>
           <div className="flex h-full w-[90vw] flex-col items-center justify-evenly gap-10 md:flex-row">
             <div className="z-30 mt-10 flex  w-[90vw] flex-col items-center justify-center md:w-[50%]">
-              <div className="z-20 flex h-[420px] w-[300px] flex-col items-center justify-center rounded-3xl bg-black md:h-[500px] md:w-[380px]">
+              <div className="z-20 flex h-[420px] w-[300px] flex-col items-center justify-center overflow-hidden rounded-3xl bg-black md:h-[500px] md:w-[380px]">
                 <div
                   ref={container}
-                  className="z-30 h-fit  w-[340px] overflow-hidden rounded-lg"
+                  className="z-30 h-fit w-[250px] overflow-hidden rounded-lg md:w-[340px]"
                 ></div>
               </div>
             </div>
@@ -153,11 +153,11 @@ function Confirm() {
                 className="flex flex-col items-center justify-center"
               >
                 <div
-                  className={`z-20 mt-20  mb-10 flex h-[80px] w-fit flex-col items-center justify-center rounded-lg bg-theme-30  shadow-xl shadow-black transition-all duration-300 ease-in-out hover:scale-90 hover:cursor-pointer hover:shadow-md hover:shadow-black md:h-[100px] ${
+                  className={`z-20 mt-20  mb-10 flex h-fit w-fit flex-col items-center justify-center rounded-lg bg-theme-30  shadow-xl shadow-black transition-all duration-300 ease-in-out hover:scale-90 hover:cursor-pointer hover:shadow-md hover:shadow-black md:h-[100px] ${
                     uploaded ? "visible" : "invisible"
                   }`}
                 >
-                  <p className="p-4 text-[40px] text-white">
+                  <p className="p-4 text-[30px] text-white md:text-[40px]">
                     Back to Dashboard
                   </p>
                 </div>
