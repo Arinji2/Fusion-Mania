@@ -15,8 +15,11 @@ function Confirm() {
   const [name, setName] = useState("");
   const [cards, setCards] = useState(0);
   const [rating, setRating] = useState(0);
+  const [income, setIncome] = useState(0);
+  const [upkeep, setUpkeep] = useState(0);
   const [rateProps, setRateProps] = useState("");
   const [uploaded, setUploaded] = useState(false);
+
   const container = useRef(null);
 
   const getFirebaseData = () => {
@@ -31,22 +34,30 @@ function Confirm() {
       case 1:
         setRating(1);
         setRateProps("b6e3f4");
+        setIncome(10);
+        setUpkeep(0);
         break;
       case 2:
         setRating(2);
         setRateProps("c0aede");
+        setIncome(20);
+        setUpkeep(0);
         break;
       case 3:
         setRating(3);
         setRateProps("d1d4f9");
+        setIncome(30);
+        setUpkeep(20);
         break;
       case 4:
         setRating(4);
         setRateProps("ffd5dc");
+        setUpkeep(30);
         break;
       case 5:
         setRating(5);
         setRateProps("ffdfbf");
+        setUpkeep(40);
         break;
     }
   };
@@ -75,8 +86,18 @@ function Confirm() {
           const docRef = doc(db, "fusionmania", auth.currentUser.uid);
           const docs = doc(db, "fusionmania", auth.currentUser.uid);
           getDoc(docs).then((res) => {
-            updateDoc(docRef, {
+            const updatedItems = {
               deck: res.data().deck + 1,
+              income: res.data().income + income,
+              upkeep: res.data().upkeep + upkeep,
+            };
+            console.log(updatedItems);
+            console.log(res.data());
+            console.log(income, upkeep);
+            updateDoc(docRef, {
+              deck: updatedItems.deck,
+              income: updatedItems.income,
+              upkeep: updatedItems.upkeep,
             });
             setUploaded(true);
           });

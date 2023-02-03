@@ -44,12 +44,11 @@ function Verify() {
       verified: auth.currentUser.emailVerified,
       startPrim: 0,
       startSecond: 0,
+      income: 0,
+      upkeep: 0,
       deck: 0,
     }).then(() => {
-      const fileRef = ref(
-        store,
-        `fusionmania/${auth.currentUser.uid}/initial.txt`
-      );
+      const fileRef = ref(store, `fusionmania/${auth.currentUser.uid}`);
       uploadBytes(fileRef).then(() => {
         window.location.assign("/setup/name");
       });

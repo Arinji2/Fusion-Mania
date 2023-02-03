@@ -70,6 +70,7 @@ function Nick() {
           startPrim: Uid1,
           startSecond: Uid2,
           deck: 2,
+          income: 20,
         }).then(() => {
           navigate("/dashboard");
         });

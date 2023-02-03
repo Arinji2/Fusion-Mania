@@ -9,10 +9,12 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChessBoard } from "@fortawesome/fontawesome-free-solid";
 import fa1 from "../../assets/1-solid.svg";
 import fa2 from "../../assets/2-solid.svg";
+
+import { faMoneyBillWave } from "@fortawesome/fontawesome-free-solid";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth, db, store } from "../../firebase";
 import { doc, getDoc } from "firebase/firestore";
-import { getBlob, getBytes, getDownloadURL, ref } from "firebase/storage";
+
 import { Link } from "react-router-dom";
 
 function Dashboard() {
@@ -20,8 +22,8 @@ function Dashboard() {
     name: "Loading",
     deck: "Loading",
   });
-  const [starter1, setStarter1] = useState("");
-  const [starter2, setStarter2] = useState("");
+  const [income, setIncome] = useState(0);
+  const [upkeep, setUpkeep] = useState(0);
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, () => {
       if (auth) {
@@ -30,25 +32,14 @@ function Dashboard() {
           if (res.exists() === false) window.location.assign("/verify");
           setData(res.data());
 
-          getStarter(setStarter1, res.data().startPrim);
-          getStarter(setStarter2, res.data().startSecond);
+          setIncome(res.data().income);
+          setUpkeep(res.data().upkeep);
           unsubscribe();
         });
       }
     });
   }, []);
 
-  const getStarter = (dataMethod, number) => {
-    const fileRef = ref(
-      store,
-      `fusionmania/${auth.currentUser.uid}/${number}.json`
-    );
-    getBytes(fileRef).then((res) => {
-      const string = new TextDecoder().decode(res);
-      const obj = JSON.parse(string);
-      dataMethod(obj.name);
-    });
-  };
   return (
     <React.Fragment>
       <User />
@@ -68,28 +59,35 @@ function Dashboard() {
                 name={data ? `${data.deck}/50` : "Loading.."}
                 icon={faChessBoard}
               />
-              <StatsNum
-                name={starter1.length > 0 ? starter1 : "Loading"}
-                icon={fa1}
-              />
-              <StatsNum
-                name={starter2.length > 0 ? starter2 : "Loading"}
-                icon={fa2}
-              />
+              <StatsNum name={income > 0 ? `+${income}` : 0} icon={fa1} />
+              <StatsNum name={upkeep > 0 ? `-${upkeep}` : 0} icon={fa2} />
             </div>
             <div className="mt-10 flex h-fit w-full flex-row flex-wrap items-center justify-evenly gap-y-10 pb-10">
-              <Link
-                to="/materialize"
-                className="flex flex-col items-center justify-center"
-              >
-                <Card
-                  img={Materialize}
-                  head="Materialize"
-                  text="Create New Avatars"
-                />
-              </Link>
-              <Card img={Merge} head="Merge" text="Merge Existing Avatars" />
-              <Card img={Manage} head="Manage" text="Manage Existing Avatars" />
+              <Card
+                img={Materialize}
+                head="Materialize"
+                text="Create New Avatars"
+                location="/materialize"
+                income={income}
+                upkeep={upkeep}
+              />
+
+              <Card
+                img={Merge}
+                head="Merge"
+                text="Merge Existing Avatars"
+                location="materialize"
+                income={income}
+                upkeep={upkeep}
+              />
+              <Card
+                img={Manage}
+                head="Manage"
+                text="Manage Existing Avatars"
+                location="manage"
+                income={income}
+                upkeep={upkeep}
+              />
             </div>
           </div>
         </div>
@@ -119,20 +117,44 @@ function StatsNum({ name, icon }) {
   );
 }
 
-function Card({ img, head, text }) {
-  return (
-    <div className="group relative h-[360px] w-[250px] overflow-clip rounded-lg bg-black hover:cursor-pointer">
-      <img
-        src={img}
-        className="absolute h-full w-full rounded-lg object-cover transition-all duration-300 ease-in-out group-hover:scale-110"
-      />
-      <div className="absolute z-10 h-full w-full bg-theme-0 opacity-60"></div>
-      <div className="flex h-full w-full flex-col items-center justify-start">
-        <p className="z-20 mt-20 text-[40px] text-theme-40">{head}</p>
-        <p className="absolute bottom-10 z-20 text-[20px] text-white">{text}</p>
+function Card({ img, head, text, income, upkeep, location }) {
+  if (income <= upkeep && head !== "Manage")
+    return (
+      <div className="group relative h-[360px] w-[250px] overflow-clip rounded-lg bg-black hover:cursor-pointer">
+        <img
+          src={img}
+          className="absolute h-full w-full rounded-lg object-cover transition-all duration-300 ease-in-out group-hover:scale-110"
+        />
+        <div className="absolute z-10 h-full w-full bg-theme-0 opacity-90"></div>
+        <div className="flex h-full w-full flex-col items-center justify-start">
+          <p className="z-20 mt-20 text-[40px] text-white">{head}</p>
+          <p className="absolute bottom-20 z-20 text-[25px] text-theme-40">
+            You can not afford this
+          </p>
+        </div>
       </div>
-    </div>
-  );
+    );
+  else
+    return (
+      <div
+        className="group relative h-[360px] w-[250px] overflow-clip rounded-lg bg-black hover:cursor-pointer"
+        onClick={() => {
+          window.location.assign(location);
+        }}
+      >
+        <img
+          src={img}
+          className="absolute h-full w-full rounded-lg object-cover transition-all duration-300 ease-in-out group-hover:scale-110"
+        />
+        <div className="absolute z-10 h-full w-full bg-theme-0 opacity-50"></div>
+        <div className="flex h-full w-full flex-col items-center justify-start">
+          <p className="z-20 mt-20 text-[40px] text-theme-40">{head}</p>
+          <p className="absolute bottom-10 z-20 text-[20px] text-white">
+            {text}
+          </p>
+        </div>
+      </div>
+    );
 }
 
 export default Dashboard;

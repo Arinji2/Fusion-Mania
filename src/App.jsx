@@ -11,6 +11,8 @@ import Nick from "./pages/setup/nick";
 import Dashboard from "./pages/dashboard/dashboard";
 import Main from "./pages/materialize/main";
 import Confirm from "./pages/materialize/confirm";
+import Manage from "./pages/manage/main";
+import Card from "./pages/manage/individual";
 function App() {
   return (
     <div>
@@ -27,6 +29,8 @@ function App() {
           <Route path="/dashboard" element={<Dashboard />}></Route>
           <Route path="/materialize" element={<Main />}></Route>
           <Route path="/materialize/confirm" element={<Confirm />}></Route>
+          <Route path="/manage" element={<Manage />}></Route>
+          <Route path="/manage/:id" element={<Card />}></Route>
         </Routes>
       </Router>
     </div>
