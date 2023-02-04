@@ -2,13 +2,18 @@ import React, { useState, useEffect, useRef } from "react";
 import User from "../../components/navbars/user";
 import Manage from "../../assets/ManagePage.png";
 import { useParams } from "react-router-dom";
-import { deleteObject, getDownloadURL, ref } from "firebase/storage";
+import {
+  deleteObject,
+  getDownloadURL,
+  ref,
+  uploadBytes,
+} from "firebase/storage";
 import { auth, db, store } from "../../firebase";
 import { onAuthStateChanged } from "firebase/auth";
 import { createAvatar } from "@dicebear/core";
 import { personas } from "@dicebear/collection";
 import { Oval } from "react-loader-spinner";
-import { faTrash } from "@fortawesome/fontawesome-free-solid";
+import { faSave, faTrash, faUndo } from "@fortawesome/fontawesome-free-solid";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit } from "@fortawesome/fontawesome-free-solid";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
@@ -17,6 +22,9 @@ function Card() {
   const params = useParams();
   const [error, setError] = useState(false);
   const [deletionCheck, setDeletionCheck] = useState(false);
+  const [editCheck, setEditCheck] = useState(false);
+  const [name, setName] = useState("");
+
   const [loaded, setLoaded] = useState(false);
   const [data, setData] = useState({});
   const [parent, setParent] = useState({});
@@ -103,6 +111,7 @@ function Card() {
   useEffect(() => {
     if (parent == {}) return;
     if (deletionCheck !== true) return;
+
     console.log(parent);
     const storeRef = ref(
       store,
@@ -123,6 +132,32 @@ function Card() {
       });
     });
   }, [parent]);
+
+  const saveName = () => {
+    const storeRef = ref(
+      store,
+      `fusionmania/${auth.currentUser.uid}/${params.id}.json`
+    );
+    const seed = data.seed;
+    const rating = data.rating;
+    deleteObject(storeRef).then(() => {
+      const data = {
+        uid: params.id,
+        seed: seed,
+        name: name,
+        rating: rating,
+      };
+      const jsonBlob = new Blob([JSON.stringify(data)], {
+        type: "application/json",
+      });
+
+      uploadBytes(storeRef, jsonBlob).then(() => {
+        window.location.assign("/manage");
+        return;
+      });
+    });
+  };
+
   return (
     <React.Fragment>
       <User />
@@ -160,13 +195,25 @@ function Card() {
             </div>
             <div className=" flex h-fit w-full flex-col items-center justify-center md:h-full md:w-[50%]">
               <div className="flex h-full w-full flex-row items-center justify-center">
-                <div className="flex h-fit w-[50%] flex-col items-center justify-center gap-10 md:items-start">
+                <div
+                  className={
+                    editCheck
+                      ? "hidden"
+                      : "flex h-fit w-[50%] flex-col items-center justify-center gap-10 md:items-start"
+                  }
+                >
                   <p className="text-left text-[40px] text-white">Name:</p>
                   <p className="text-left text-[40px] text-white">Rating:</p>
                   <p className="text-left text-[40px] text-white">Income:</p>
                   <p className="text-left text-[40px] text-white">Upkeep:</p>
                 </div>
-                <div className="flex h-fit w-[50%] flex-col items-center justify-center gap-10 md:items-start">
+                <div
+                  className={
+                    editCheck
+                      ? "hidden"
+                      : "flex h-fit w-[50%] flex-col items-center justify-center gap-10 md:items-start"
+                  }
+                >
                   <p className="text-center text-[40px] text-theme-40">
                     {loaded ? data.name : "Loading"}
                   </p>
@@ -183,8 +230,45 @@ function Card() {
                     {loaded ? `-${upkeep}` : "Loading"}
                   </p>
                 </div>
+                <div
+                  className={
+                    editCheck
+                      ? "flex h-fit w-[50%] flex-col items-center justify-center gap-10 md:items-start"
+                      : "hidden"
+                  }
+                >
+                  <p className="text-left text-[40px] text-white">Old Name:</p>
+                  <p className="text-left text-[40px] text-white">New Name:</p>
+                </div>
+                <div
+                  className={
+                    editCheck
+                      ? "flex h-fit w-[50%] flex-col items-center justify-center gap-10 md:items-start"
+                      : "hidden"
+                  }
+                >
+                  <p className="text-center text-[40px] text-theme-40">
+                    {loaded ? data.name : "Loading"}
+                  </p>
+                  <input
+                    type={"email"}
+                    autoCapitalize="off"
+                    autoComplete="off"
+                    spellCheck="false"
+                    className=" flex h-[50px] w-[50%] flex-col items-center justify-center rounded-lg bg-[#29596B] p-4 text-left text-2xl text-white outline-none hover:cursor-pointer"
+                    onChange={(e) => {
+                      setName(e.currentTarget.value);
+                    }}
+                  ></input>
+                </div>
               </div>
-              <div className="flex h-fit w-full flex-row items-center justify-center gap-5 md:justify-start md:gap-20">
+              <div
+                className={
+                  editCheck
+                    ? "hidden"
+                    : "flex h-fit w-full flex-row items-center justify-center gap-5 md:justify-start md:gap-20"
+                }
+              >
                 <p
                   className=" mb-3 mt-20 rounded-lg bg-theme-30 p-4 text-3xl text-white transition-all duration-300 ease-in-out hover:cursor-pointer hover:bg-white hover:text-theme-30"
                   onClick={() => {
@@ -196,10 +280,34 @@ function Card() {
                 <p
                   className=" mb-3 mt-20 rounded-lg bg-theme-30 p-4 text-3xl text-white transition-all duration-300 ease-in-out hover:cursor-pointer hover:bg-white hover:text-theme-30"
                   onClick={() => {
-                    window.location.assign("/dashboard");
+                    setEditCheck(true);
                   }}
                 >
                   <FontAwesomeIcon icon={faEdit} /> Edit
+                </p>
+              </div>
+              <div
+                className={
+                  editCheck
+                    ? "flex h-fit w-full flex-row items-center justify-center gap-5 md:justify-start md:gap-20"
+                    : "hidden"
+                }
+              >
+                <p
+                  className=" mb-3 mt-20 rounded-lg bg-theme-30 p-4 text-3xl text-white transition-all duration-300 ease-in-out hover:cursor-pointer hover:bg-white hover:text-theme-30"
+                  onClick={() => {
+                    setEditCheck(false);
+                  }}
+                >
+                  <FontAwesomeIcon icon={faUndo} /> Back
+                </p>
+                <p
+                  className=" mb-3 mt-20 rounded-lg bg-theme-30 p-4 text-3xl text-white transition-all duration-300 ease-in-out hover:cursor-pointer hover:bg-white hover:text-theme-30"
+                  onClick={() => {
+                    saveName();
+                  }}
+                >
+                  <FontAwesomeIcon icon={faSave} /> Save
                 </p>
               </div>
             </div>
