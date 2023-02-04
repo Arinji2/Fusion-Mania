@@ -13,6 +13,7 @@ import Main from "./pages/materialize/main";
 import Confirm from "./pages/materialize/confirm";
 import Manage from "./pages/manage/main";
 import Card from "./pages/manage/individual";
+import Animation from "./pages/animation";
 function App() {
   return (
     <div>
@@ -31,6 +32,7 @@ function App() {
           <Route path="/materialize/confirm" element={<Confirm />}></Route>
           <Route path="/manage" element={<Manage />}></Route>
           <Route path="/manage/:id" element={<Card />}></Route>
+          <Route path="/load" element={<Animation />}></Route>
         </Routes>
       </Router>
     </div>
