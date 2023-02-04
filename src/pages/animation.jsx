@@ -1,26 +1,24 @@
 import React, { useState, useEffect } from "react";
 import lottie from "lottie-web";
-function Animation() {
-  const [counter, setCounter] = useState(0);
+function Animation({ container, flag, location }) {
   useEffect(() => {
-    setCounter(counter + 1);
-  }, []);
-
-  useEffect(() => {
+    if (flag !== true) return;
+    console.log(flag);
     const newAnimation = lottie.loadAnimation({
-      container: document.getElementById("animation-container"),
+      container: document.getElementById(container),
       renderer: "svg",
-      loop: true,
+      loop: false,
       autoplay: true,
-      path: "./complete.json",
-      height: 200,
-      width: 200,
+      path: "/complete.json",
+    });
+    newAnimation.addEventListener("complete", () => {
+      window.location.assign(`/${location}`);
     });
     return () => newAnimation.destroy();
-  }, []);
+  }, [flag]);
   return (
-    <div className="flex h-screen w-full flex-col items-center justify-center bg-black">
-      <div id="animation-container"></div>
+    <div className=" absolute h-full w-full ">
+      <div id={container}></div>
     </div>
   );
 }

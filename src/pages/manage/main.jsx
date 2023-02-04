@@ -46,12 +46,7 @@ function Main() {
   return (
     <React.Fragment>
       <User />
-      <div className="relative h-fit w-full md:min-h-screen">
-        <img
-          src={Manage}
-          className="absolute top-0 h-full min-h-screen w-full object-cover md:min-h-full"
-        />
-        <div className="absolute top-0 z-10 h-full min-h-screen w-full bg-theme-0 opacity-60 md:min-h-full"></div>
+      <div className="relative h-fit w-full bg-theme-0 md:min-h-screen">
         <div className="flex h-full w-full flex-col items-center justify-center">
           <h1 className="z-20 mt-10 mb-10 text-[60px] font-bold text-theme-40">
             Manage
@@ -67,16 +62,10 @@ function Main() {
         <div
           className={
             loaded
-              ? "fixed top-0 left-0 z-30 h-screen w-full opacity-0 transition-all duration-1000 ease-in-out"
-              : "fixed top-0 left-0 z-30 h-screen w-full opacity-100 transition-all duration-1000 ease-in-out"
+              ? "fixed top-0 left-0 z-30 h-screen w-full bg-theme-0 opacity-0 transition-all duration-1000 ease-in-out"
+              : "fixed top-0 left-0 z-30 h-screen w-full bg-theme-0 opacity-100 transition-all duration-1000 ease-in-out"
           }
-        >
-          <img
-            src={Manage}
-            className="absolute top-0 h-full min-h-screen w-full object-cover md:min-h-full"
-          />
-          <div className="absolute top-0 z-10 h-full min-h-screen w-full bg-theme-0 opacity-60 md:min-h-full"></div>
-        </div>
+        ></div>
       </div>
     </React.Fragment>
   );

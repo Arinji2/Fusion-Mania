@@ -17,6 +17,7 @@ import { faSave, faTrash, faUndo } from "@fortawesome/fontawesome-free-solid";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit } from "@fortawesome/fontawesome-free-solid";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
+import Animation from "../animation";
 
 function Card() {
   const params = useParams();
@@ -24,7 +25,7 @@ function Card() {
   const [deletionCheck, setDeletionCheck] = useState(false);
   const [editCheck, setEditCheck] = useState(false);
   const [name, setName] = useState("");
-
+  const [success, setSuccess] = useState(false);
   const [loaded, setLoaded] = useState(false);
   const [data, setData] = useState({});
   const [parent, setParent] = useState({});
@@ -128,11 +129,13 @@ function Card() {
       upkeep: updatedUpkeep,
     }).then(() => {
       deleteObject(storeRef).then(() => {
-        window.location.assign("/manage");
+        setSuccess(true);
       });
     });
   }, [parent]);
-
+  useEffect(() => {
+    console.log("runs");
+  }, [success]);
   const saveName = () => {
     const storeRef = ref(
       store,
@@ -152,7 +155,7 @@ function Card() {
       });
 
       uploadBytes(storeRef, jsonBlob).then(() => {
-        window.location.assign("/manage");
+        setSuccess(true);
         return;
       });
     });
@@ -350,6 +353,29 @@ function Card() {
           >
             Yes, I am Sure!
           </p>
+        </div>
+        <div
+          className={
+            success
+              ? "fixed top-0 z-40 flex h-full w-full flex-col items-center justify-center bg-black opacity-100"
+              : "fixed top-0 -z-30 flex h-full w-full flex-col items-center justify-center bg-black opacity-0"
+          }
+        >
+          <img
+            src={Manage}
+            className="absolute top-0 h-full min-h-screen w-full object-cover md:min-h-full"
+          />
+          <div className="absolute top-0 z-10 h-full min-h-screen w-full bg-theme-0 opacity-70 md:min-h-full"></div>
+          <div
+            id="animation-container"
+            className="absolute z-30 h-[400px] w-[400px]"
+          >
+            <Animation
+              container={"animation-container"}
+              flag={success}
+              location="manage"
+            />
+          </div>
         </div>
       </div>
     </React.Fragment>
