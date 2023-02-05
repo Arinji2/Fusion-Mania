@@ -13,7 +13,9 @@ import Main from "./pages/materialize/main";
 import Confirm from "./pages/materialize/confirm";
 import Manage from "./pages/manage/main";
 import Card from "./pages/manage/individual";
-import Animation from "./pages/animation";
+
+import MergeFirst from "./pages/merge/merge1";
+import MergeSecond from "./pages/merge/merge2";
 function App() {
   const [success, setSuccess] = useState(false);
 
@@ -39,17 +41,8 @@ function App() {
           <Route path="/materialize/confirm" element={<Confirm />}></Route>
           <Route path="/manage" element={<Manage />}></Route>
           <Route path="/manage/:id" element={<Card />}></Route>
-          <Route
-            path="/load"
-            element={
-              <Animation
-                container="billie"
-                flag={success}
-                location="dashboard"
-                size={200}
-              />
-            }
-          ></Route>
+          <Route path="/merge/second" element={<MergeSecond />}></Route>
+          <Route path="/merge/first" element={<MergeFirst />}></Route>
         </Routes>
       </Router>
     </div>

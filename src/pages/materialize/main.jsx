@@ -26,6 +26,8 @@ function Main() {
     window.location.assign("/materialize/confirm");
   };
   useEffect(() => {
+    if (localStorage.getItem("income") == localStorage.getItem("upkeep"))
+      window.location.assign("/dashboard");
     generateAvatar();
   }, []);
   return (

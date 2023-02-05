@@ -17,7 +17,7 @@ import { faSave, faTrash, faUndo } from "@fortawesome/fontawesome-free-solid";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit } from "@fortawesome/fontawesome-free-solid";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
-import Animation from "../animation";
+import Animation from "../animations/animationComplete";
 
 function Card() {
   const params = useParams();

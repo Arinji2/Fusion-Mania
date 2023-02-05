@@ -34,6 +34,8 @@ function Dashboard() {
 
           setIncome(res.data().income);
           setUpkeep(res.data().upkeep);
+          localStorage.setItem("income", res.data().income);
+          localStorage.setItem("upkeep", res.data().upkeep);
           unsubscribe();
         });
       }
@@ -76,7 +78,7 @@ function Dashboard() {
                 img={Merge}
                 head="Merge"
                 text="Merge Existing Avatars"
-                location="materialize"
+                location="/merge/first"
                 income={income}
                 upkeep={upkeep}
               />
@@ -84,7 +86,7 @@ function Dashboard() {
                 img={Manage}
                 head="Manage"
                 text="Manage Existing Avatars"
-                location="manage"
+                location="/manage"
                 income={income}
                 upkeep={upkeep}
               />

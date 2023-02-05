@@ -20,52 +20,52 @@ function User() {
   }, [nav]);
   return (
     <React.Fragment>
-      <div className="h-[13vh] w-full sticky top-0 bg-black z-50  flex-row items-center justify-between md:flex hidden shadow-md shadow-black">
-        <div className="h-full w-[60%]  md:w-[30%] flex flex-col items-start justify-center">
+      <div className="sticky top-0 z-50 hidden h-[13vh] w-full  flex-row items-center justify-between bg-black shadow-md shadow-black md:flex">
+        <div className="flex h-full  w-[60%] flex-col items-start justify-center md:w-[30%]">
           <Link
             to="/dashboard"
             className="flex flex-col items-center justify-center"
           >
-            <p className="text-[25px] text-white nav ml-10">Fusion Mania</p>
+            <p className="nav ml-10 text-[25px] text-white">Fusion Mania</p>
           </Link>
         </div>
-        <div className="h-full w-[10%] md:w-[50%] flex flex-row items-center justify-between nav ">
+        <div className="nav flex h-full w-[10%] flex-row items-center justify-between md:w-[50%] ">
           <Link
             to="/materialize"
             className="flex flex-col items-center justify-center"
           >
-            <p className="text-[25px] text-theme-40 nav">Materialize</p>
+            <p className="nav text-[25px] text-theme-40">Materialize</p>
           </Link>
           <Link
-            to="/merge"
+            to="/merge/first"
             className="flex flex-col items-center justify-center"
           >
-            <p className="text-[25px] text-theme-40 nav">Merge</p>
+            <p className="nav text-[25px] text-theme-40">Merge</p>
           </Link>
           <Link
             to="/manage"
             className="flex flex-col items-center justify-center"
           >
-            <p className="text-[25px] text-theme-40 nav">Manage</p>
+            <p className="nav text-[25px] text-theme-40">Manage</p>
           </Link>
         </div>
-        <div className="h-full w-[60%] md:w-[30%] flex flex-col items-end justify-center">
+        <div className="flex h-full w-[60%] flex-col items-end justify-center md:w-[30%]">
           <Link
             to="/account"
             className="flex flex-col items-center justify-center"
           >
-            <p className="text-[25px] text-theme-30 nav mr-10">Account</p>
+            <p className="nav mr-10 text-[25px] text-theme-30">Account</p>
           </Link>
         </div>
       </div>
-      <div className="h-[13vh] w-full sticky top-0 bg-black z-50  flex-row items-center justify-between md:hidden flex shadow-md shadow-black">
+      <div className="sticky top-0 z-50 flex h-[13vh] w-full  flex-row items-center justify-between bg-black shadow-md shadow-black md:hidden">
         <Link to="/dashboard" className="w-full">
-          <p className="text-white text-[25px] nav  w-full text-center">
+          <p className="nav w-full text-center  text-[25px] text-white">
             Fusion Mania
           </p>
         </Link>
         <p
-          className="text-theme-30 text-[25px] absolute right-5 z-50"
+          className="absolute right-5 z-50 text-[25px] text-theme-30"
           onClick={toggleNav}
         >
           <FontAwesomeIcon
@@ -81,8 +81,8 @@ function User() {
       <div
         className={
           nav
-            ? "h-screen fixed bg-black z-50 w-full transition-all ease-in-out duration-1000 flex flex-col items-center justify-start gap-20"
-            : "h-0 fixed bg-black z-50 w-full transition-all ease-in-out duration-1000"
+            ? "fixed z-50 flex h-screen w-full flex-col items-center justify-start gap-20 bg-black transition-all duration-1000 ease-in-out"
+            : "fixed z-50 h-0 w-full bg-black transition-all duration-1000 ease-in-out"
         }
       >
         <Link
@@ -90,16 +90,19 @@ function User() {
           className="flex flex-col items-center justify-center"
         >
           <p
-            className={`text-[30px] text-theme-40 nav mt-20 ${
+            className={`nav mt-20 text-[30px] text-theme-40 ${
               text ? "block" : "hidden"
             }`}
           >
             Materialize
           </p>
         </Link>
-        <Link to="/merge" className="flex flex-col items-center justify-center">
+        <Link
+          to="/merge/first"
+          className="flex flex-col items-center justify-center"
+        >
           <p
-            className={`text-[30px] text-theme-40 nav ${
+            className={`nav text-[30px] text-theme-40 ${
               text ? "block" : "hidden"
             }`}
           >
@@ -111,7 +114,7 @@ function User() {
           className="flex flex-col items-center justify-center"
         >
           <p
-            className={`text-[30px] text-theme-40 nav ${
+            className={`nav text-[30px] text-theme-40 ${
               text ? "block" : "hidden"
             }`}
           >
@@ -123,7 +126,7 @@ function User() {
           className="flex flex-col items-center justify-center"
         >
           <p
-            className={`text-[30px] text-theme-30 nav pb-10 ${
+            className={`nav pb-10 text-[30px] text-theme-30 ${
               text ? "block" : "hidden"
             }`}
           >
