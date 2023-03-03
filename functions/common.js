@@ -1,3 +1,5 @@
+import { personas } from "@dicebear/collection";
+import { createAvatar } from "@dicebear/core";
 import { onAuthStateChanged } from "firebase/auth";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { ref, uploadBytes } from "firebase/storage";
@@ -94,4 +96,12 @@ export const updateAccount = ({ income, upkeep }) => {
       });
     }
   });
+};
+
+export const genAvatar = (seed, rateProps) => {
+  const svg = createAvatar(personas, {
+    seed: seed,
+    backgroundColor: [rateProps],
+  });
+  return svg;
 };
