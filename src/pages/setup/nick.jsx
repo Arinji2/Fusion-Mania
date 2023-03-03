@@ -1,15 +1,14 @@
 import React, { useState, useEffect, useRef } from "react";
 import NavBarMain from "../../components/navbars/main";
 import SetupPic from "../../assets/setup.png";
-import { auth, db, store } from "../../firebase";
-import { updateDoc, doc, getDoc } from "firebase/firestore";
-import { personas } from "@dicebear/collection";
-import { createAvatar } from "@dicebear/core";
-
-import { onAuthStateChanged } from "firebase/auth";
-
-import { ref, uploadBytes } from "firebase/storage";
+import { getSetupAvatars, genSetupAvatars } from "../../../functions/setup";
+import {
+  generateRating,
+  updateAccount,
+  uploadAvatars,
+} from "../../../functions/common";
 import { useNavigate } from "react-router-dom";
+
 function Nick() {
   const [av1, setAv1] = useState(0);
   const [av2, setAv2] = useState(0);
@@ -18,109 +17,22 @@ function Nick() {
 
   const avatar1 = useRef(null);
   const avatar2 = useRef(null);
+
   const navigate = useNavigate();
-  const Uid1 = Math.ceil(Math.random() * 1000000);
-  const Uid2 = Math.ceil(Math.random() * 1000000);
-  const uploadAv1 = () => {
-    const av1Data = {
-      uid: Uid1,
-      seed: av1,
-      name: nick1,
-      rating: 1,
-    };
-
-    const fileRef = ref(
-      store,
-      `fusionmania/${auth.currentUser.uid}/${Uid1}.json`
-    );
-
-    const jsonBlob = new Blob([JSON.stringify(av1Data)], {
-      type: "application/json",
-    });
-
-    uploadBytes(fileRef, jsonBlob)
-      .then(() => {
-        uploadAv2();
-      })
-      .catch((er) => {
-        console.log(er);
-      });
-  };
-  const uploadAv2 = () => {
-    const av2Data = {
-      uid: Uid2,
-      seed: av2,
-      name: nick2,
-      rating: 1,
-    };
-
-    const fileRef = ref(
-      store,
-      `fusionmania/${auth.currentUser.uid}/${Uid2}.json`
-    );
-
-    const jsonBlob = new Blob([JSON.stringify(av2Data)], {
-      type: "application/json",
-    });
-
-    uploadBytes(fileRef, jsonBlob)
-      .then(() => {
-        const docRef = doc(db, "fusionmania", auth.currentUser.uid);
-        updateDoc(docRef, {
-          startPrim: Uid1,
-          startSecond: Uid2,
-          deck: 2,
-          income: 20,
-        }).then(() => {
-          navigate("/dashboard");
-        });
-      })
-      .catch((er) => {
-        console.log(er);
-      });
-  };
-
-  const generate1 = () => {
-    const svg = createAvatar(personas, {
-      seed: av1,
-      clothingColor: ["456dff"],
-      eyes: ["happy"],
-      body: ["rounded"],
-      skinColor: ["623d36"],
-    });
-    avatar1.current.innerHTML = svg;
-  };
-
-  const generate2 = () => {
-    const svg = createAvatar(personas, {
-      seed: av2,
-      clothingColor: ["54d7c7"],
-      eyes: ["glasses"],
-      body: ["rounded"],
-      skinColor: ["b16a5b"],
-    });
-
-    avatar2.current.innerHTML = svg;
-  };
 
   useEffect(() => {
-    onAuthStateChanged(auth, () => {
-      if (auth) {
-        const docRef = doc(db, "fusionmania", auth.currentUser.uid);
-        getDoc(docRef).then((data) => {
-          setAv1(data.data().startPrim);
-          setAv2(data.data().startSecond);
-        });
-      }
+    if (av1 != 0)
+      avatar1.current.innerHTML = genSetupAvatars({ mode: 1, seed: av1 });
+    if (av2 != 0)
+      avatar2.current.innerHTML = genSetupAvatars({ mode: 2, seed: av2 });
+  }, [av1, av2]);
+
+  useEffect(() => {
+    getSetupAvatars().then((data) => {
+      setAv1(data.av1);
+      setAv2(data.av2);
     });
   }, []);
-
-  useEffect(() => {
-    if (av1 != 0) generate1();
-  }, [av1]);
-  useEffect(() => {
-    if (av2 != 0) generate2();
-  }, [av2]);
   return (
     <React.Fragment>
       <NavBarMain mode={1} />
@@ -175,7 +87,37 @@ function Nick() {
             </div>
             <p
               className=" mb-3 rounded-lg bg-theme-30 p-2 text-3xl text-white transition-all duration-300 ease-in-out hover:cursor-pointer hover:bg-white hover:text-theme-30"
-              onClick={uploadAv1}
+              onClick={() => {
+                uploadAvatars({
+                  name: nick1,
+                  seed: av1,
+                  props: genSetupAvatars({ mode: 1, seed: av1 }).toJson().extra,
+                  rateProps: generateRating(),
+                }).then(([response, rateProps]) => {
+                  updateAccount({
+                    income: rateProps.income,
+                    upkeep: rateProps.upkeep,
+                  });
+                  if (response) {
+                    uploadAvatars({
+                      name: nick2,
+                      seed: av2,
+                      props: genSetupAvatars({ mode: 2, seed: av2 }).toJson()
+                        .extra,
+                      rateProps: generateRating(),
+                    }).then(([response, rateProps]) => {
+                      updateAccount({
+                        income: rateProps.income,
+                        upkeep: rateProps.upkeep,
+                      });
+                      if (response)
+                        setTimeout(() => {
+                          navigate("/dashboard");
+                        }, 1000);
+                    });
+                  }
+                });
+              }}
             >
               Lets Roll!
             </p>

@@ -6,6 +6,7 @@ import { getDownloadURL, listAll, ref } from "firebase/storage";
 import { createAvatar } from "@dicebear/core";
 import { personas } from "@dicebear/collection";
 import { Oval } from "react-loader-spinner";
+import Merge from "../../assets/MergePage.png";
 function MergeFirst() {
   const [data, setData] = useState([]);
   const [loaded, setLoaded] = useState(false);
@@ -45,9 +46,14 @@ function MergeFirst() {
   return (
     <React.Fragment>
       <User />
-      <div className="relative h-fit w-full bg-theme-0 md:min-h-screen">
-        <div className="flex h-full w-full flex-col items-center justify-center">
-          <h1 className="z-20 mt-10 mb-10 text-[60px] font-bold text-theme-40">
+      <div className="relative h-fit w-full md:h-[87vh]">
+        <img
+          src={Merge}
+          className="fixed top-0 h-full min-h-screen w-full object-cover md:min-h-full"
+        />
+        <div className="fixed top-0 z-10 h-full min-h-screen w-full bg-theme-0 opacity-60 md:min-h-full"></div>
+        <div className="flex h-full w-full flex-col items-center justify-start">
+          <h1 className="z-20 mt-10 text-[60px] font-bold text-theme-40">
             Merge
           </h1>
           <p className="z-20 mt-10 mb-10 text-[40px]  text-white">

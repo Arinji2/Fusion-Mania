@@ -1,61 +1,40 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useContext } from "react";
 import NavBarMain from "../../components/navbars/main";
 import SetupPic from "../../assets/setup.png";
-import { auth, db } from "../../firebase";
-import { updateDoc, doc } from "firebase/firestore";
-import { personas } from "@dicebear/collection";
-import { createAvatar } from "@dicebear/core";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faRandom } from "@fortawesome/fontawesome-free-solid";
+import { chooseSetupAvatars } from "../../../functions/setup";
+import { authContext } from "../../App";
 function Choose() {
-  const [av1, setAv1] = useState(0);
-  const [av2, setAv2] = useState(0);
+  const [av1, setAv1] = useState(false);
+  const [av2, setAv2] = useState(false);
   const avatar1 = useRef(null);
   const avatar2 = useRef(null);
-  const finish = () => {
-    const docRef = doc(db, "fusionmania", auth.currentUser.uid);
-
-    updateDoc(docRef, {
-      startPrim: av1,
-      startSecond: av2,
-    }).then(() => {
-      window.location.assign("/setup/nick");
-    });
-  };
-
-  const generate1 = () => {
-    const seed = Math.random();
-    setAv1(seed);
-    const svg = createAvatar(personas, {
-      seed: seed,
-      clothingColor: ["456dff"],
-      eyes: ["happy"],
-      body: ["rounded"],
-      skinColor: ["623d36"],
-      backgroundColor: ["b6e3f4"],
-    });
-    avatar1.current.innerHTML = svg;
-  };
-
-  const generate2 = () => {
-    const seed = Math.random();
-    setAv2(seed);
-    const svg = createAvatar(personas, {
-      seed: seed,
-      clothingColor: ["54d7c7"],
-      eyes: ["glasses"],
-      body: ["rounded"],
-      skinColor: ["b16a5b"],
-      backgroundColor: ["b6e3f4"],
-    });
-
-    avatar2.current.innerHTML = svg;
-  };
+  const auth = useContext(authContext);
 
   useEffect(() => {
-    generate1();
-    generate2();
-  }, []);
+    if (av1) {
+      chooseSetupAvatars({ mode: 1, auth: auth }).then((res) => {
+        avatar1.current.innerHTML = res;
+      });
+
+      setAv1(false);
+    }
+    if (av2) {
+      chooseSetupAvatars({ mode: 2, auth: auth }).then((res) => {
+        avatar2.current.innerHTML = res;
+      });
+
+      setAv2(false);
+    }
+  }, [av1, av2, auth]);
+
+  useEffect(() => {
+    if (auth !== null) {
+      setAv1(true);
+      setAv2(true);
+    }
+  }, [auth]);
   return (
     <React.Fragment>
       <NavBarMain mode={1} />
@@ -82,7 +61,9 @@ function Choose() {
                 ></div>
                 <div
                   className="flex aspect-square h-[50px] flex-col items-center justify-center rounded-lg bg-theme-30 text-2xl text-white hover:cursor-pointer"
-                  onClick={generate1}
+                  onClick={() => {
+                    setAv1(true);
+                  }}
                 >
                   <FontAwesomeIcon icon={faRandom} />
                 </div>
@@ -94,7 +75,9 @@ function Choose() {
                 ></div>
                 <div
                   className="flex aspect-square h-[50px] flex-col items-center justify-center rounded-lg bg-theme-30 text-2xl text-white hover:cursor-pointer"
-                  onClick={generate2}
+                  onClick={() => {
+                    setAv2(true);
+                  }}
                 >
                   <FontAwesomeIcon icon={faRandom} />
                 </div>
@@ -102,7 +85,9 @@ function Choose() {
             </div>
             <p
               className=" mb-3 rounded-lg bg-theme-30 p-2 text-3xl text-white transition-all duration-300 ease-in-out hover:cursor-pointer hover:bg-white hover:text-theme-30"
-              onClick={finish}
+              onClick={() => {
+                window.location.assign("/setup/nick");
+              }}
             >
               Lets Roll!
             </p>

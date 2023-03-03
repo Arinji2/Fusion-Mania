@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import User from "../../components/navbars/user";
 import Manage from "../../assets/ManagePage.png";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import {
   deleteObject,
   getDownloadURL,
@@ -167,13 +167,15 @@ function Card() {
       <div className="relative flex h-fit w-full flex-col items-center justify-center md:min-h-[87vh]">
         <img
           src={Manage}
-          className="absolute top-0 h-full min-h-screen w-full object-cover md:min-h-full"
+          className="fixed top-0 h-full min-h-screen w-full object-cover md:min-h-full"
         />
-        <div className="absolute top-0 z-10 h-full min-h-screen w-full bg-theme-0 opacity-70 md:min-h-full"></div>
+        <div className="fixed top-0 z-10 h-full min-h-screen w-full bg-theme-0 opacity-70 md:min-h-full"></div>
         <div className="flex h-full w-full flex-col items-center justify-center">
-          <h1 className="z-20 mt-10 mb-10 text-[60px] font-bold text-theme-40">
-            Manage
-          </h1>
+          <Link to="/manage" className="flex flex-col items-center">
+            <h1 className="z-20 mt-10 mb-10 text-[60px] font-bold text-theme-40">
+              Manage
+            </h1>
+          </Link>
           <div className="z-20 flex w-full flex-row flex-wrap items-center justify-evenly gap-y-10">
             <div className="flex h-fit w-full flex-col items-center justify-center md:h-full md:w-[50%]">
               <div className="relative flex h-[400px] w-[300px] flex-col items-center justify-center overflow-hidden rounded-lg bg-black">
@@ -352,6 +354,14 @@ function Card() {
             }}
           >
             Yes, I am Sure!
+          </p>
+          <p
+            className=" mb-3 mt-20 rounded-lg bg-theme-30 p-2 text-3xl text-white transition-all duration-300 ease-in-out hover:cursor-pointer hover:bg-white hover:text-theme-30"
+            onClick={() => {
+              setDeletionCheck(false);
+            }}
+          >
+            No, Take me Back!
           </p>
         </div>
         <div

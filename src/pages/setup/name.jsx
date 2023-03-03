@@ -1,20 +1,21 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import NavBarMain from "../../components/navbars/main";
 import SetupPic from "../../assets/setup.png";
 import { auth, db } from "../../firebase";
 import { updateDoc, doc } from "firebase/firestore";
-import { Link, redirect, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { authContext } from "../../App";
 function Name() {
   const [name, setName] = useState("Hunter");
-  const [redirect, setRedirect] = useState(false);
-  const naviage = useNavigate();
+  const navigate = useNavigate();
+  const auth = useContext(authContext);
   const updateName = () => {
-    const docRef = doc(db, "fusionmania", auth.currentUser.uid);
+    const docRef = doc(db, "fusionmania", auth.uid);
 
     updateDoc(docRef, {
       name: name,
     }).then(() => {
-      naviage("/setup/choose");
+      navigate("/setup/choose");
     });
   };
 

@@ -46,9 +46,14 @@ function Main() {
   return (
     <React.Fragment>
       <User />
-      <div className="relative h-fit w-full bg-theme-0 md:min-h-screen">
-        <div className="flex h-full w-full flex-col items-center justify-center">
-          <h1 className="z-20 mt-10 mb-10 text-[60px] font-bold text-theme-40">
+      <div className="relative h-fit w-full md:h-[87vh]">
+        <img
+          src={Manage}
+          className="fixed top-10 h-full min-h-screen w-full object-cover md:min-h-full"
+        />
+        <div className="fixed top-10 z-10 h-full min-h-screen w-full bg-theme-0 opacity-60 md:min-h-full"></div>
+        <div className="flex h-full w-full flex-col items-center justify-center md:mt-10">
+          <h1 className="z-20 mt-10 text-[60px] font-bold text-theme-40">
             Manage
           </h1>
           <div className="mb-10 flex w-full flex-row flex-wrap items-center justify-evenly gap-10">

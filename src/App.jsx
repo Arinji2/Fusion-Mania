@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import Landing from "./pages/landing";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Login from "./pages/auth/login";
@@ -16,35 +16,49 @@ import Card from "./pages/manage/individual";
 
 import MergeFirst from "./pages/merge/merge1";
 import MergeSecond from "./pages/merge/merge2";
+import Final from "./pages/merge/final";
+import Success from "./pages/merge/success";
+import New from "./pages/setup/new";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "./firebase";
+
+export const authContext = createContext();
+
 function App() {
-  const [success, setSuccess] = useState(false);
+  const [value, setValue] = useState(null);
 
   useEffect(() => {
-    setTimeout(() => {
-      setSuccess(true);
-    }, [2000]);
-  });
+    onAuthStateChanged(auth, (user) => {
+      setValue(user);
+    });
+  }, []);
+
   return (
     <div>
-      <Router>
-        <Routes>
-          <Route path="/" element={<Landing />}></Route>
-          <Route path="/login" element={<Login />}></Route>
-          <Route path="/create" element={<Create />}></Route>
-          <Route path="/verify" element={<Verify />}></Route>
-          <Route path="/forgot" element={<Forgot />}></Route>
-          <Route path="/setup/name" element={<Name />}></Route>
-          <Route path="/setup/choose" element={<Choose />}></Route>
-          <Route path="/setup/nick" element={<Nick />}></Route>
-          <Route path="/dashboard" element={<Dashboard />}></Route>
-          <Route path="/materialize" element={<Main />}></Route>
-          <Route path="/materialize/confirm" element={<Confirm />}></Route>
-          <Route path="/manage" element={<Manage />}></Route>
-          <Route path="/manage/:id" element={<Card />}></Route>
-          <Route path="/merge/second" element={<MergeSecond />}></Route>
-          <Route path="/merge/first" element={<MergeFirst />}></Route>
-        </Routes>
-      </Router>
+      <authContext.Provider value={value}>
+        <Router>
+          <Routes>
+            <Route path="/" element={<Landing />}></Route>
+            <Route path="/login" element={<Login />}></Route>
+            <Route path="/create" element={<Create />}></Route>
+            <Route path="/verify" element={<Verify />}></Route>
+            <Route path="/forgot" element={<Forgot />}></Route>
+            <Route path="/setup/name" element={<Name />}></Route>
+            <Route path="/setup/choose" element={<Choose />}></Route>
+            <Route path="/setup/nick" element={<Nick />}></Route>
+            <Route path="/setup/new-nick" element={<New />}></Route>
+            <Route path="/dashboard" element={<Dashboard />}></Route>
+            <Route path="/materialize" element={<Main />}></Route>
+            <Route path="/materialize/confirm" element={<Confirm />}></Route>
+            <Route path="/manage" element={<Manage />}></Route>
+            <Route path="/manage/:id" element={<Card />}></Route>
+            <Route path="/merge/first" element={<MergeFirst />}></Route>
+            <Route path="/merge/second" element={<MergeSecond />}></Route>
+            <Route path="/merge/final" element={<Final />}></Route>
+            <Route path="/merge/success" element={<Success />}></Route>
+          </Routes>
+        </Router>
+      </authContext.Provider>
     </div>
   );
 }

@@ -22,21 +22,21 @@ function Hero() {
   return (
     <React.Fragment>
       <NavBarMain />
-      <div className="h-screen w-full bg-white">
-        <div className="absolute h-screen w-full overflow-hidden">
+      <div className="h-[100svh] w-full bg-white">
+        <div className="absolute h-[100svh] w-full overflow-hidden">
           <img
             src={HeroPicMob}
             alt={"Hero Picture"}
-            className="absolute block h-screen w-full object-cover object-center md:hidden"
+            className="absolute block h-[100svh] w-full object-cover object-center md:hidden"
           />
           <img
             src={HeroPicPc}
             alt={"Hero Picture"}
-            className="absolute hidden h-screen w-full object-cover md:block"
+            className="absolute hidden h-[100svh] w-full object-cover md:block"
           />
-          <div className="absolute h-screen w-full bg-theme-0 opacity-60"></div>
+          <div className="absolute h-[100svh] w-full bg-theme-0 opacity-60"></div>
         </div>
-        <div className="relative z-20 flex h-screen w-full flex-col items-center justify-end bg-transparent">
+        <div className="relative z-20 flex h-[100svh] w-full flex-col items-center justify-end bg-transparent">
           <div className="flex h-[80vh] w-full flex-col items-center justify-start gap-20">
             <h1 className="text-center text-6xl  text-theme-40 md:text-[150px]">
               Fusion Mania
@@ -61,7 +61,7 @@ function Hero() {
 
 function What() {
   return (
-    <div className="relative flex h-screen w-full flex-col items-center justify-start gap-10 overflow-hidden bg-theme-10">
+    <div className="relative flex h-[100svh] w-full flex-col items-center justify-start gap-10 overflow-hidden bg-theme-10">
       <h2 className="m-2 mt-10 text-[50px] text-white md:text-[60px]">
         What is Fusion Mania
       </h2>
@@ -95,14 +95,14 @@ function What() {
 
 function End() {
   return (
-    <div className="relative h-screen w-full bg-white">
-      <div className="absolute h-screen w-full overflow-hidden">
+    <div className="relative h-[100svh] w-full bg-white">
+      <div className="absolute h-[100svh] w-full overflow-hidden">
         <img
           src={EndPic}
           alt={"Hero Picture"}
-          className="absolute h-screen w-full object-cover object-center"
+          className="absolute h-[100svh] w-full object-cover object-center"
         />
-        <div className="absolute h-screen w-full bg-theme-0 opacity-60"></div>
+        <div className="absolute h-[100svh] w-full bg-theme-0 opacity-60"></div>
       </div>
       <div className="flex w-full flex-col items-center justify-center">
         <h1 className="z-10 mt-10 hidden text-[40px] text-theme-50 md:block md:w-[85vw] md:text-[70px]">

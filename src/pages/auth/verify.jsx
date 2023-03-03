@@ -48,10 +48,7 @@ function Verify() {
       upkeep: 0,
       deck: 0,
     }).then(() => {
-      const fileRef = ref(store, `fusionmania/${auth.currentUser.uid}`);
-      uploadBytes(fileRef).then(() => {
-        window.location.assign("/setup/name");
-      });
+      window.location.assign("/setup/name");
     });
   };
   return (
