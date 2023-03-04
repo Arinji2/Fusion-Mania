@@ -34,7 +34,6 @@ export const uploadAvatars = ({ name, seed, props, rateProps }) => {
               reject(er);
             });
         } catch (error) {
-         
           reject(error);
         }
       } else {
@@ -161,7 +160,9 @@ export const uidDownload = ({ auth, uid }) => {
           });
         });
       });
-    } 
+    } catch (er) {
+      console.log(er);
+    }
   });
 };
 
