@@ -2,7 +2,7 @@ import { personas } from "@dicebear/collection";
 import { createAvatar } from "@dicebear/core";
 import { onAuthStateChanged } from "firebase/auth";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
-import { ref, uploadBytes } from "firebase/storage";
+import { getDownloadURL, listAll, ref, uploadBytes } from "firebase/storage";
 import { auth, db, store } from "../src/firebase";
 
 export const uploadAvatars = ({ name, seed, props, rateProps }) => {
@@ -104,4 +104,128 @@ export const genAvatar = (seed, rateProps) => {
     backgroundColor: [rateProps],
   });
   return svg;
+};
+
+export const propsAvatar = ({ seed, props }) => {
+  const svg = createAvatar(personas, {
+    seed: seed,
+    backgroundColor: [props.backgroundColor],
+    backgroundType: [props.backgroundType],
+    backgroundRotation: [props.backgroundRotation],
+    body: [props.body],
+    clothingColor: [props.clothingColor.substring(1)],
+    eyes: [props.eyes],
+    hair: [props.hair],
+    hairColor: [props.hairColor.substring(1)],
+    mouth: [props.mouth],
+    nose: [props.nose],
+    skinColor: [props.skinColor.substring(1)],
+    radius: 5,
+  });
+  return svg;
+};
+
+export const listFiles = async ({ auth }) => {
+  return new Promise((resolve) => {
+    const storeRef = ref(store, `fusionmania/${auth.uid}`);
+    listAll(storeRef).then((res) => {
+      const results = [];
+      res.items.forEach((item) => {
+        let refs = ref(store, item.fullPath);
+        getDownloadURL(refs).then((items) => {
+          fetch(items).then((file) => {
+            file.json().then((final) => {
+              results.push(final);
+              if (results.length === res.items.length) {
+                results.sort((a, b) => b.rating - a.rating);
+                resolve(results);
+              }
+            });
+          });
+        });
+      });
+    });
+  });
+};
+
+export const uidDownload = ({ auth, uid }) => {
+  return new Promise((resolve) => {
+    uid = Number.parseInt(uid);
+    const storeRef = ref(store, `fusionmania/${auth.uid}/${uid}.json`);
+
+    try {
+      getDownloadURL(storeRef).then((link) => {
+        fetch(link).then((data) => {
+          data.json().then((file) => {
+            resolve(file);
+          });
+        });
+      });
+    } catch (er) {
+      console.log(er);
+    }
+  });
+};
+
+export const mergeAvatar = ({ parent1, parent2 }) => {
+  let props = {},
+    data = {};
+  let rate = generateRating();
+  data.rating = rate;
+
+  function getOption({ option1, option2 }) {
+    let num = Math.floor(Math.random() * 2) + 1;
+    switch (num) {
+      case 1:
+        return option1;
+      case 2:
+        return option2;
+    }
+  }
+  console.log(parent1);
+  props.body = getOption({
+    option1: parent1,
+    option2: parent2,
+  }).body;
+
+  props.clothingColor = getOption({
+    option1: parent1,
+    option2: parent2,
+  }).clothingColor;
+
+  props.hair = getOption({
+    option1: parent1,
+    option2: parent2,
+  }).hair;
+
+  props.hairColor = getOption({
+    option1: parent1,
+    option2: parent2,
+  }).hairColor;
+
+  props.mouth = getOption({
+    option1: parent1,
+    option2: parent2,
+  }).mouth;
+  props.nose = getOption({
+    option1: parent1,
+    option2: parent2,
+  }).nose;
+  props.skinColor = getOption({
+    option1: parent1,
+    option2: parent2,
+  }).skinColor;
+  props.eyes = getOption({
+    option1: parent1,
+    option2: parent2,
+  }).eyes;
+  props.backgroundType = getOption({
+    option1: parent1,
+    option2: parent2,
+  }).backgroundType;
+  props.backgroundColor = rate.rateProps;
+
+  data.svg = propsAvatar({ seed: 12334, props: props });
+
+  return data;
 };

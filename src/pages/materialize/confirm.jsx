@@ -20,10 +20,6 @@ function Confirm() {
   const data = useContext(userContext);
 
   useEffect(() => {
-    if (data !== null) console.log(data);
-  }, [data]);
-
-  useEffect(() => {
     const flag = localStorage.getItem("completed");
     if (flag === "true") window.location.assign("/materialize");
     setName(localStorage.getItem("name"));

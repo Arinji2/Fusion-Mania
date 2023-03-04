@@ -1,77 +1,33 @@
-import React, { useState, useEffect, useRef } from "react";
-import { onAuthStateChanged } from "firebase/auth";
-import { auth, store } from "../../firebase";
-import { ref, getDownloadURL } from "firebase/storage";
-import { createAvatar } from "@dicebear/core";
-import { personas } from "@dicebear/collection";
+import React, { useEffect, useRef, useContext } from "react";
+
 import Merge from "../../assets/MergePage.png";
 import User from "../../components/navbars/user";
+import { authContext } from "../../App";
+import { propsAvatar, uidDownload } from "../../../functions/common";
 function Final() {
-  const [selection1, setSelection1] = useState({});
-  const [selection2, setSelection2] = useState({});
   const cont1 = useRef(null);
   const cont2 = useRef(null);
-  const cont3 = useRef(null);
+  const auth = useContext(authContext);
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, () => {
-      if (auth.currentUser == undefined) return;
-      storeData({
-        uid: localStorage.getItem("Merge1"),
-        dataSetter: setSelection1,
-      });
-      storeData({
-        uid: localStorage.getItem("Merge2"),
-        dataSetter: setSelection2,
-      });
-    });
-
-    return unsubscribe();
-  }, []);
-
-  const storeData = ({ uid, dataSetter }) => {
-    uid = Number.parseInt(uid);
-    const storeRef = ref(
-      store,
-      `fusionmania/${auth.currentUser.uid}/${uid}.json`
-    );
-
-    try {
-      getDownloadURL(storeRef).then((link) => {
-        fetch(link).then((data) => {
-          data.json().then((file) => {
-            dataSetter(file);
+    if (auth) {
+      uidDownload({ auth: auth, uid: localStorage.getItem("Merge1") }).then(
+        (res) => {
+          cont1.current.innerHTML = propsAvatar({
+            seed: res.seed,
+            props: res.props,
           });
-        });
-      });
-    } catch (er) {
-      console.log(er);
+        }
+      );
+      uidDownload({ auth: auth, uid: localStorage.getItem("Merge2") }).then(
+        (res) => {
+          cont2.current.innerHTML = propsAvatar({
+            seed: res.seed,
+            props: res.props,
+          });
+        }
+      );
     }
-  };
-
-  useEffect(() => {
-    if (selection1.seed == undefined) return;
-    else
-      showSelections({
-        seed: selection1.seed,
-        name: selection1.name,
-        container: cont1,
-      });
-  }, [selection1]);
-  useEffect(() => {
-    if (selection2.seed == undefined) return;
-    else
-      showSelections({
-        seed: selection2.seed,
-        name: selection2.name,
-        container: cont2,
-      });
-  }, [selection2]);
-  const showSelections = ({ seed, name, container }) => {
-    const svg = createAvatar(personas, {
-      seed: seed,
-    });
-    container.current.innerHTML = svg;
-  };
+  }, [auth]);
 
   return (
     <React.Fragment>
@@ -113,8 +69,6 @@ function Final() {
           <p
             className="absolute bottom-10 z-30 w-fit rounded-lg border-2 border-theme-30 bg-theme-30 p-2 text-[15px] text-white transition-all duration-300 ease-in-out hover:cursor-pointer hover:bg-white hover:text-theme-30 md:pr-4 md:pl-4 md:text-[25px]"
             onClick={() => {
-              localStorage.setItem("Merge1", selection1.seed);
-              localStorage.setItem("Merge2", selection2.seed);
               window.location.assign("/merge/success");
             }}
           >

@@ -1,12 +1,11 @@
 import React, { useState, useEffect, useRef } from "react";
 import User from "../../components/navbars/user";
-import { auth, db, store } from "../../firebase";
+import { auth } from "../../firebase";
 import { onAuthStateChanged } from "firebase/auth";
-import { getDownloadURL, listAll, ref } from "firebase/storage";
-import { createAvatar } from "@dicebear/core";
-import { personas } from "@dicebear/collection";
+
 import { Oval } from "react-loader-spinner";
 import Merge from "../../assets/MergePage.png";
+import { listFiles, propsAvatar } from "../../../functions/common";
 function MergeSecond() {
   const [data, setData] = useState([]);
   const [loaded, setLoaded] = useState(false);
@@ -14,34 +13,16 @@ function MergeSecond() {
   const [error, setError] = useState(false);
   useEffect(() => {
     onAuthStateChanged(auth, () => {
-      if (localStorage.getItem("Merge1") == null)
-        window.location.assign("/merge/first");
-      if (auth.currentUser !== null) listFiles();
+      if (auth.currentUser !== null)
+        listFiles({ auth: auth.currentUser }).then((res) => {
+          setData(res);
+        });
     });
   }, []);
 
-  const listFiles = async () => {
-    if (loaded) return;
-    const storeRef = ref(store, `fusionmania/${auth.currentUser.uid}`);
-    listAll(storeRef).then((res) => {
-      const results = [];
-      res.items.forEach((item) => {
-        let refs = ref(store, item.fullPath);
-        getDownloadURL(refs).then((items) => {
-          fetch(items).then((file) => {
-            file.json().then((final) => {
-              results.push(final);
-              if (results.length === res.items.length) {
-                results.sort((a, b) => b.rating - a.rating);
-                setData(results);
-                setLoaded(true);
-              }
-            });
-          });
-        });
-      });
-    });
-  };
+  useEffect(() => {
+    if (data.length > 0) setLoaded(true);
+  }, [data]);
 
   return (
     <React.Fragment>
@@ -117,7 +98,7 @@ function MergeSecond() {
             Please select the second Avatar to be able to Continue!!
           </p>
           <p
-            className="z-30 w-fit rounded-lg border-2 border-theme-30 bg-theme-30 p-2 text-[15px] text-white transition-all duration-300 ease-in-out hover:cursor-pointer hover:bg-white hover:text-theme-30 md:pr-4 md:pl-4 md:text-[25px]"
+            className="z-30 w-fit rounded-lg border-2 border-theme-30 bg-theme-30 p-2 text-[20px] text-white transition-all duration-300 ease-in-out hover:cursor-pointer hover:bg-white hover:text-theme-30 md:pr-4 md:pl-4 md:text-[25px]"
             onClick={() => {
               setError(false);
             }}
@@ -135,11 +116,12 @@ function Card({ data, setterFunc, setterItem }) {
   const container = useRef(null);
 
   useEffect(() => {
-    const svg = createAvatar(personas, {
-      seed: data.seed,
-    });
+    let svg;
+
+    if (data.props != undefined)
+      svg = propsAvatar({ seed: data.seed, props: data.props });
     container.current.innerHTML = svg;
-  }, []);
+  }, [data]);
 
   useEffect(() => {
     if (setterItem == data.uid) setSelected(true);
