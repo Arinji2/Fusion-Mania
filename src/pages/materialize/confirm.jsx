@@ -27,7 +27,6 @@ function Confirm() {
     const seedLoc = localStorage.getItem("seed");
 
     const rateLoc = generateRating();
-    console.log(rateLoc.rateProps);
     const svg = genAvatar(seedLoc, rateLoc.rateProps);
     container.current.innerHTML = svg;
     setRate(rateLoc);

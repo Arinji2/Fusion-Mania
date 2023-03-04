@@ -34,7 +34,7 @@ export const uploadAvatars = ({ name, seed, props, rateProps }) => {
               reject(er);
             });
         } catch (error) {
-          console.error(error);
+         
           reject(error);
         }
       } else {
@@ -161,9 +161,7 @@ export const uidDownload = ({ auth, uid }) => {
           });
         });
       });
-    } catch (er) {
-      console.log(er);
-    }
+    } 
   });
 };
 
@@ -182,7 +180,7 @@ export const mergeAvatar = ({ parent1, parent2 }) => {
         return option2;
     }
   }
-  console.log(parent1);
+
   props.body = getOption({
     option1: parent1,
     option2: parent2,
