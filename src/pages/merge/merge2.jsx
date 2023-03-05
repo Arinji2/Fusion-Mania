@@ -27,7 +27,7 @@ function MergeSecond() {
   return (
     <React.Fragment>
       <User />
-      <div className="relative h-fit w-full md:h-[87vh]">
+      <div className="relative h-fit w-full">
         <img
           src={Merge}
           className="fixed top-0 h-full min-h-screen w-full object-cover md:min-h-full"

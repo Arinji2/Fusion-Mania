@@ -1,10 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import NavBarMain from "../../components/navbars/main";
 import LoginPic from "../../assets/auth.png";
 import { Link } from "react-router-dom";
 import { sendPasswordResetEmail } from "firebase/auth";
 import { auth } from "../../firebase";
+import { authContext } from "../../App";
+
 function Forgot() {
+  const authLoc = useContext(authContext);
   return (
     <React.Fragment>
       <NavBarMain />
@@ -22,7 +25,7 @@ function Forgot() {
             <p
               className={`rounded-lg border-2 border-[#29596B] bg-[#29596B] p-2 text-[30px] text-white transition-all duration-300 ease-in-out hover:cursor-pointer hover:bg-white hover:text-[#29596B]`}
               onClick={() => {
-                sendPasswordResetEmail(auth, auth.currentUser.email);
+                sendPasswordResetEmail(auth, authLoc.email);
               }}
             >
               Send Email Reset

@@ -32,12 +32,18 @@ function Success() {
               setSvgState(svg);
               setRating(svg.rating);
               container.current.innerHTML = svg.svg;
+              localStorage.setItem("Merge1", 0);
             }
           );
         }
       );
     }
   }, [auth]);
+
+  useEffect(() => {
+    if (localStorage.getItem("Merge1") === "0")
+      window.location.assign("/dashboard");
+  }, []);
 
   return (
     <React.Fragment>
@@ -106,11 +112,11 @@ function Success() {
                     window.location.assign("/dashboard");
                   });
                 }}
-                className={`z-20 mt-20  mb-10 flex h-fit w-fit flex-col items-center justify-center rounded-lg bg-theme-30  shadow-xl shadow-black transition-all duration-300 ease-in-out hover:scale-90 hover:cursor-pointer hover:shadow-md hover:shadow-black md:h-[100px] ${
+                className={`z-20 m-20 flex h-fit w-fit flex-col items-center justify-center rounded-lg bg-theme-30  shadow-xl shadow-black transition-all duration-300 ease-in-out hover:scale-90 hover:cursor-pointer hover:shadow-md hover:shadow-black md:h-[100px] ${
                   name.length > 0 ? "visible" : "invisible"
                 }`}
               >
-                <p className="p-4 text-[30px] text-white md:text-[40px]">
+                <p className="m-4 p-4 text-[30px] text-white md:text-[40px]">
                   Back to Dashboard
                 </p>
               </div>

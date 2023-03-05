@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useContext } from "react";
 import User from "../../components/navbars/user";
 import Manage from "../../assets/ManagePage.png";
 import { Link, useParams } from "react-router-dom";
@@ -18,102 +18,51 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit } from "@fortawesome/fontawesome-free-solid";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 import Animation from "../animations/animationComplete";
+import { authContext, userContext } from "../../App";
+import { propsAvatar, uidDownload } from "../../../functions/common";
 
 function Card() {
   const params = useParams();
   const [error, setError] = useState(false);
   const [deletionCheck, setDeletionCheck] = useState(false);
+  const [deletionconfirmation, setdeletionconfirmation] = useState(false);
   const [editCheck, setEditCheck] = useState(false);
   const [name, setName] = useState("");
   const [success, setSuccess] = useState(false);
   const [loaded, setLoaded] = useState(false);
-  const [data, setData] = useState({});
+  const [data, setData] = useState({
+    uid: 0,
+  });
   const [parent, setParent] = useState({});
   const [income, setIncome] = useState(0);
   const [upkeep, setUpkeep] = useState(0);
   const [rateProps, setRateProps] = useState("");
   const container = useRef(null);
 
-  useEffect(() => {
-    onAuthStateChanged(auth, () => {
-      if (auth) getData();
-    });
-  }, []);
+  const auth = useContext(authContext);
+  const user = useContext(userContext);
 
-  const getData = () => {
-    const storeRef = ref(
-      store,
-      `fusionmania/${auth.currentUser.uid}/${params.id}.json`
-    );
-    getDownloadURL(storeRef)
-      .catch((er) => {
-        if (er.code === "storage/object-not-found") setError(true);
-      })
-      .then((link) => {
-        fetch(link).then((file) => {
-          file.json().then((item) => {
-            setData(item);
-          });
-        });
+  useEffect(() => {
+    if (auth)
+      uidDownload({ auth: auth, uid: params.id }).then((res) => {
+        setData(res);
       });
-  };
-  const generateRating = (num) => {
-    switch (num) {
-      case 1:
-        setRateProps("b6e3f4");
-        setIncome(10);
-        break;
-      case 2:
-        setRateProps("c0aede");
-        setIncome(20);
-        break;
-      case 3:
-        setRateProps("d1d4f9");
-        setIncome(30);
-        setUpkeep(20);
-        break;
-      case 4:
-        setRateProps("ffd5dc");
-        setUpkeep(30);
-        break;
-      case 5:
-        setRateProps("ffdfbf");
-        setUpkeep(40);
-        break;
-    }
-  };
-
-  const getAvatar = () => {
-    generateRating(data.rating);
-    if (data.seed == undefined) return;
-    const svg = createAvatar(personas, {
-      seed: data.seed,
-      backgroundColor: [rateProps],
-    });
-
-    container.current.innerHTML = svg;
-    setTimeout(() => {
-      setLoaded(true);
-    }, 1000);
-  };
+  }, [auth]);
 
   useEffect(() => {
-    if (data == {}) return;
-    else getAvatar();
+    if (data.uid === 0) return;
+
+    container.current.innerHTML = propsAvatar({
+      seed: data.seed,
+      props: data.props,
+    });
+    setLoaded(true);
   }, [data]);
 
-  const startDelete = () => {
-    const docRef = doc(db, "fusionmania", auth.currentUser.uid);
-    getDoc(docRef).then((response) => {
-      setParent(response.data());
-    });
-  };
-
   useEffect(() => {
-    if (parent == {}) return;
-    if (deletionCheck !== true) return;
+    if (deletionCheck !== true || !user) return;
 
-    console.log(parent);
+    console.log(user);
     const storeRef = ref(
       store,
       `fusionmania/${auth.currentUser.uid}/${params.id}.json`
@@ -132,7 +81,7 @@ function Card() {
         setSuccess(true);
       });
     });
-  }, [parent]);
+  }, [deletionCheck, data]);
   useEffect(() => {
     console.log("runs");
   }, [success]);

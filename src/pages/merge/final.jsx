@@ -42,9 +42,12 @@ function Final() {
           <h1 className="z-20 mt-10 text-[60px] font-bold text-theme-40">
             Merge
           </h1>
-          <div className="absolute bottom-36 flex h-[300px] w-full flex-row items-center justify-evenly">
-            <div className="z-20 flex h-[300px] w-[300px] flex-col items-center justify-center gap-5 rounded-lg bg-theme-10 shadow-md shadow-black">
-              <div className="z-20 h-[200px] w-[200px]" ref={cont1}></div>
+          <div className="mb-10 flex h-full w-full flex-col items-center justify-evenly gap-y-10 md:h-[300px] md:flex-row">
+            <div className="z-20 flex h-[200px] w-[200px] flex-col items-center justify-center gap-5 rounded-lg bg-theme-10 shadow-md shadow-black md:h-[300px] md:w-[300px]">
+              <div
+                className="z-20 h-[100px] w-[100px] md:h-[200px] md:w-[200px]"
+                ref={cont1}
+              ></div>
               <p
                 className="z-30 w-fit rounded-lg border-2 border-theme-30 bg-theme-30 p-2 text-[15px] text-white transition-all duration-300 ease-in-out hover:cursor-pointer hover:bg-white hover:text-theme-30 md:pr-4 md:pl-4 md:text-[25px]"
                 onClick={() => {
@@ -54,8 +57,11 @@ function Final() {
                 Back to Selection!
               </p>
             </div>
-            <div className="z-20 flex h-[300px] w-[300px] flex-col items-center justify-center gap-5 rounded-lg bg-theme-10 shadow-md shadow-black">
-              <div className="z-20 h-[200px] w-[200px]" ref={cont2}></div>
+            <div className="z-20 flex h-[200px] w-[200px] flex-col items-center justify-center gap-5 rounded-lg bg-theme-10 shadow-md shadow-black md:h-[300px] md:w-[300px]">
+              <div
+                className="z-20 h-[100px] w-[100px] md:h-[200px] md:w-[200px]"
+                ref={cont2}
+              ></div>
               <p
                 className="z-30 w-fit rounded-lg border-2 border-theme-30 bg-theme-30 p-2 text-[15px] text-white transition-all duration-300 ease-in-out hover:cursor-pointer hover:bg-white hover:text-theme-30 md:pr-4 md:pl-4 md:text-[25px]"
                 onClick={() => {
@@ -65,9 +71,17 @@ function Final() {
                 Back to Selection!
               </p>
             </div>
+            <p
+              className="z-30 block w-fit rounded-lg border-2 border-theme-30 bg-theme-30 p-2 text-[15px] text-white transition-all duration-300 ease-in-out hover:cursor-pointer hover:bg-white hover:text-theme-30 md:hidden md:pr-4 md:pl-4 md:text-[25px]"
+              onClick={() => {
+                window.location.assign("/merge/success");
+              }}
+            >
+              Start Merge
+            </p>
           </div>
           <p
-            className="absolute bottom-10 z-30 w-fit rounded-lg border-2 border-theme-30 bg-theme-30 p-2 text-[15px] text-white transition-all duration-300 ease-in-out hover:cursor-pointer hover:bg-white hover:text-theme-30 md:pr-4 md:pl-4 md:text-[25px]"
+            className="absolute bottom-10 z-30 hidden w-fit rounded-lg border-2 border-theme-30 bg-theme-30 p-2 text-[15px] text-white transition-all duration-300 ease-in-out hover:cursor-pointer hover:bg-white hover:text-theme-30 md:block md:pr-4 md:pl-4 md:text-[25px]"
             onClick={() => {
               window.location.assign("/merge/success");
             }}
