@@ -4,7 +4,7 @@ import { getAuth } from "firebase/auth";
 import { getStorage } from "firebase/storage";
 const firebaseConfig = {
   apiKey: "AIzaSyB58DNUia7wT_W9oOF-s7l0ZHk7B7SZt8c",
-  authDomain: "arinji-9a53b.firebaseapp.com",
+  authDomain: "auth.arinji.me",
   databaseURL:
     "https://arinji-9a53b-default-rtdb.asia-southeast1.firebasedatabase.app",
   projectId: "arinji-9a53b",
